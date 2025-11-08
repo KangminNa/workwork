@@ -1,15 +1,11 @@
 {
-  "name": "@app/api",
+  "name": "@workwork/domain-$d",
   "version": "1.0.0",
-  "private": true,
   "type": "module",
+  "main": "server/index.ts",
+  "types": "server/index.ts",
   "dependencies": {
-    "fastify": "^4.0.0",
     "@workwork/core": "workspace:*",
     "@workwork/feature": "workspace:*"
-  },
-  "scripts": {
-    "dev": "ts-node-dev src/main.ts",
-    "build": "tsc"
   }
 }

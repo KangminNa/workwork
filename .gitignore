@@ -1,8 +1,5 @@
 # Node
 node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 pnpm-debug.log*
 
 # Build outputs
@@ -18,24 +15,21 @@ logs/
 *.log
 *.tmp
 
-# Environment variables
+# Environment vars
 .env
 .env.*
 !.env.example
 
-# OS / Editor files
+# OS / Editors
 .DS_Store
-Thumbs.db
 .idea/
 .vscode/
-*.swp
 
-# React specific
+# Apps
 apps/web/.next/
 apps/web/out/
 apps/web/node_modules/
 
-# API specific
 apps/api/node_modules/
 apps/api/dist/
 
@@ -46,26 +40,21 @@ apps/api/dist/
 # infra ignore rules
 #########################
 
-# Docker
 infra/docker/*.env
 infra/docker/**/data/
 infra/docker/**/volumes/
 infra/docker/*.local.yml
 
-# Prisma
 infra/prisma/migrations/
 infra/prisma/dev.db
 infra/prisma/*.sqlite
 infra/prisma/.env
 
-# Config (local secrets)
 infra/config/*.local.*
 infra/config/**/*.local.*
 
-# Scripts (local execution files)
 infra/scripts/*.sh
 infra/scripts/**/*.sh
 
-# Generated files
 infra/**/*.log
 infra/tmp/

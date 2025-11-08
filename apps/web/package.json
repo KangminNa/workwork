@@ -1,0 +1,16 @@
+{
+  "name": "@app/web",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "react": "^18",
+    "react-dom": "^18",
+    "@workwork/core": "workspace:*",
+    "@workwork/feature": "workspace:*"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build"
+  }
+}

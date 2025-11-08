@@ -1,0 +1,10 @@
+{
+  "name": "@workwork/core",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "type": "module",
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

@@ -1,0 +1,5 @@
+packages:
+  - "01-core"
+  - "02-feature"
+  - "03-domain/*"
+  - "apps/*"
