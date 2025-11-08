@@ -1,4 +1,25 @@
 {
-  "extends": "../../tsconfig.json",
-  "include": ["src"]
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "outDir": "../../dist/apps/api",
+    "rootDir": "src",
+    "composite": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "tsBuildInfoFile": "../../dist/apps/api/.tsbuildinfo"
+  },
+  "include": ["src"],
+  "references": [
+    { "path": "../../01-core" },
+    { "path": "../../02-feature" },
+    { "path": "../../03-domain/login" },
+    { "path": "../../03-domain/schedule" },
+    { "path": "../../03-domain/user" }
+  ]
 }

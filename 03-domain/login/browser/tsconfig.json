@@ -1,13 +1,21 @@
 {
-    "extends": "../tsconfig.json", // login 도메인 루트 tsconfig.json을 상속
-    "compilerOptions": {
-      "target": "es2020", // 최신 브라우저 타겟
-      "lib": ["DOM", "DOM.Iterable", "ESNext"],
-      "module": "ESNext",
-      "jsx": "react-jsx", // React 사용 시
-      "types": ["vite/client"], // 예: Vite 사용 시 클라이언트 타입
-      "outDir": "./dist/browser"
-    },
-    "include": ["./**/*.ts", "./**/*.tsx"],
-    "exclude": ["./dist", "./node_modules"]
-  }
+  "compilerOptions": {
+    "target": "es2020",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "module": "ESNext",
+    "jsx": "react-jsx",
+    "outDir": "../../../../dist/03-domain/login/browser",
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "tsBuildInfoFile": "../../../../dist/03-domain/login/browser/.tsbuildinfo"
+  },
+  "include": ["./**/*.ts", "./**/*.tsx"],
+  "exclude": ["./dist", "./node_modules"],
+  "references": [
+    { "path": "../../../01-core" },
+    { "path": "../../../02-feature" },
+    { "path": ".." }
+  ]
+}

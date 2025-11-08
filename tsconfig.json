@@ -10,8 +10,6 @@
     { "path": "./apps/api" }
   ],
   "compilerOptions": {
-    "composite": true,
-    "incremental": true,
     "baseUrl": ".",
     "paths": {
       "@core/*": ["01-core/src/*"],

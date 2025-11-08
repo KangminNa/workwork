@@ -1,18 +1,27 @@
 {
-  "extends": "../tsconfig.json", // 프로젝트 루트의 기본 tsconfig.json을 상속
   "compilerOptions": {
-    "composite": true,
-    "outDir": "./dist",
+    "target": "es2016",
+    "module": "commonjs",
+    "outDir": "../../dist/03-domain/login",
     "rootDir": "./",
+    "composite": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
     "declaration": true,
-    "baseUrl": ".",
-    "paths": {
-      "@domain-login/*": ["./*"]
-    }
+    "declarationMap": true,
+    "sourceMap": true,
+    "tsBuildInfoFile": "../../dist/03-domain/login/.tsbuildinfo"
   },
-  "include": [], // 하위 tsconfig에서 처리하므로 비워둠
+  "include": [
+    "./index.ts",
+    "./server/**/*.ts",
+    "./service/**/*.ts",
+    "./shared/**/*.ts"
+  ],
   "references": [
-    { "path": "./browser/tsconfig.json" },
-    { "path": "./server/tsconfig.json" }
+    { "path": "../../01-core" },
+    { "path": "../../02-feature" }
   ]
 }

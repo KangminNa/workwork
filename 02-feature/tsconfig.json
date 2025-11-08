@@ -1,9 +1,21 @@
 {
-  "extends": "../tsconfig.json",
   "compilerOptions": {
-    "outDir": "dist",
+    "target": "es2016",
+    "module": "commonjs",
+    "outDir": "../../dist/02-feature",
     "rootDir": "src",
-    "composite": true
+    "composite": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "tsBuildInfoFile": "../../dist/02-feature/.tsbuildinfo"
   },
-  "include": ["src"]
+  "include": ["src"],
+  "references": [
+    { "path": "../01-core" }
+  ]
 }

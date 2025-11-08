@@ -1,9 +1,27 @@
 {
-  "extends": "../tsconfig.json",
   "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": "src",
-    "composite": true
+    "target": "es2016",
+    "module": "commonjs",
+    "outDir": "../../dist/03-domain/user",
+    "rootDir": "./",
+    "composite": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "tsBuildInfoFile": "../../dist/03-domain/user/.tsbuildinfo"
   },
-  "include": ["src"]
+  "include": [
+    "./index.ts",
+    "./server/**/*.ts",
+    "./service/**/*.ts",
+    "./shared/**/*.ts"
+  ],
+  "references": [
+    { "path": "../../01-core" },
+    { "path": "../../02-feature" }
+  ]
 }
