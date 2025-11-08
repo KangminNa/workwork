@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { HTTP_STATUS, API_ERROR_CODE } from '../types/error.types';
+import { HTTP_STATUS, API_ERROR_CODE } from '../types/error_types';
 
 export function commonErrorMiddleware(err: any, req: Request, res: Response, next: NextFunction) {
   console.error(err);

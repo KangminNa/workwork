@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es2016",
-    "module": "commonjs",
+    "target": "es2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["es2022", "dom"],
     "outDir": "../../dist/02-feature",
     "rootDir": "src",
     "composite": true,
@@ -12,7 +14,11 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "tsBuildInfoFile": "../../dist/02-feature/.tsbuildinfo"
+    "tsBuildInfoFile": "../../dist/02-feature/.tsbuildinfo",
+    "baseUrl": ".",
+    "paths": {
+      "@core/*": ["../01-core/src/*"]
+    }
   },
   "include": ["src"],
   "references": [

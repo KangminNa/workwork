@@ -1,4 +1,4 @@
-import { BaseUsecase } from '../../01-core/src/types/base.usecase';
+import { BaseUsecase } from '@core/types/base_usecase';
 
 export class UsecaseRegistry {
   private static usecases = new Map<string, BaseUsecase<any, any>>();

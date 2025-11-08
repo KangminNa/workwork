@@ -1,6 +1,6 @@
 import { Express, json } from 'express';
-import { commonErrorMiddleware } from '../../01-core/src/middlewares/common.error.middleware';
-import { dynamicRouter } from './dynamic.router';
+import { commonErrorMiddleware } from '@workwork/core';
+import { dynamicRouter } from './dynamic_router';
 
 export function initializeApi(app: Express) {
   app.use(json());

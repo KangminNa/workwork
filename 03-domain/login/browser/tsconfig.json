@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es2020",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "target": "es2022",
+    "lib": ["DOM", "DOM.Iterable", "es2022"],
     "module": "ESNext",
+    "moduleResolution": "bundler",
     "jsx": "react-jsx",
     "outDir": "../../../../dist/03-domain/login/browser",
     "composite": true,

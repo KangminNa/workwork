@@ -1,6 +1,6 @@
 import { Response, NextFunction } from 'express';
-import { ParsedRequest } from './request.parser';
-import { UsecaseRegistry } from '../../02-feature/src/usecase.registry';
+import { ParsedRequest } from './request_parser';
+import { UsecaseRegistry } from '@workwork/feature';
 
 export async function dispatcher(req: ParsedRequest, res: Response, next: NextFunction) {
   try {

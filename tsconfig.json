@@ -11,6 +11,7 @@
   ],
   "compilerOptions": {
     "baseUrl": ".",
+    "lib": ["es2022"],
     "paths": {
       "@core/*": ["01-core/src/*"],
       "@feature/*": ["02-feature/src/*"],
