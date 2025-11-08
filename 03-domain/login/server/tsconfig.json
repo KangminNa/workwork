@@ -1,0 +1,15 @@
+{
+  "extends": "../tsconfig.json", // login 도메인 루트 tsconfig.json을 상속
+  "compilerOptions": {
+    "target": "ES2021", // 특정 Node.js 버전 타겟
+    "lib": ["ES2021"],
+    "module": "CommonJS", // 또는 "ESNext" (Node.js 환경에 따라)
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "outDir": "./dist/server"
+  },
+  "include": ["./**/*.ts"],
+  "exclude": ["./dist", "./node_modules"]
+}

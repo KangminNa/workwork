@@ -1,0 +1,18 @@
+{
+  "extends": "../tsconfig.json", // 프로젝트 루트의 기본 tsconfig.json을 상속
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "./dist",
+    "rootDir": "./",
+    "declaration": true,
+    "baseUrl": ".",
+    "paths": {
+      "@domain-login/*": ["./*"]
+    }
+  },
+  "include": [], // 하위 tsconfig에서 처리하므로 비워둠
+  "references": [
+    { "path": "./browser/tsconfig.json" },
+    { "path": "./server/tsconfig.json" }
+  ]
+}
