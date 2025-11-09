@@ -3,9 +3,9 @@
     "target": "es2022",
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "lib": ["es2022", "dom"],
-    "outDir": "../../dist/02-feature",
-    "rootDir": "src",
+    "lib": ["es2022"],
+    "outDir": "../dist/02-feature",
+    "rootDir": "./src",
     "composite": true,
     "strict": true,
     "esModuleInterop": true,
@@ -14,14 +14,8 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "tsBuildInfoFile": "../../dist/02-feature/.tsbuildinfo",
-    "baseUrl": ".",
-    "paths": {
-      "@core/*": ["../01-core/src/*"]
-    }
+    "tsBuildInfoFile": "../dist/02-feature/.tsbuildinfo"
   },
-  "include": ["src"],
-  "references": [
-    { "path": "../01-core" }
-  ]
+  "include": ["src/**/*.ts"],
+  "references": [{ "path": "../01-core" }]
 }

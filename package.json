@@ -9,10 +9,13 @@
     "dev:all": "pnpm dev:web & pnpm dev:api",
     "start:web": "pnpm --filter web start",
     "start:api": "pnpm --filter api start",
-    "build": "pnpm -r build",
+    "build": "tsc --build",
     "lint": "pnpm -r lint"
   },
   "devDependencies": {
+    "@prisma/client": "^6.19.0",
+    "dotenv-cli": "^11.0.0",
+    "prisma": "^6.19.0",
     "typescript": "^5.0.0"
   }
 }

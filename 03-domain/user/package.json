@@ -1,16 +1,16 @@
 {
-  "name": "@workwork/domain-login",
+  "name": "@workwork/domain-user",
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
   "dependencies": {
     "@workwork/core": "workspace:*",
-    "@workwork/feature": "workspace:*",
-    "express": "^4.18.2"
+    "@prisma/client": "6.19.0",
+    "bcrypt": "^5.1.1"
   },
   "devDependencies": {
-    "@types/express": "^4.17.21",
+    "@types/bcrypt": "^5.0.2",
     "typescript": "^5.0.0"
   }
 }

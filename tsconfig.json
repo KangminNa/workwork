@@ -3,10 +3,7 @@
   "references": [
     { "path": "./01-core" },
     { "path": "./02-feature" },
-    { "path": "./03-domain/login" },
-    { "path": "./03-domain/schedule" },
     { "path": "./03-domain/user" },
-    { "path": "./apps/web" },
     { "path": "./apps/api" }
   ],
   "compilerOptions": {
@@ -15,8 +12,6 @@
     "paths": {
       "@core/*": ["01-core/src/*"],
       "@feature/*": ["02-feature/src/*"],
-      "@domain-login/*": ["03-domain/login/*"],
-      "@domain-schedule/*": ["03-domain/schedule/*"],
       "@domain-user/*": ["03-domain/user/*"]
     }
   }

@@ -21,8 +21,6 @@
       "@workwork/core": ["../../01-core/src/index.ts"],
       "@workwork/feature/*": ["../../02-feature/src/*"],
       "@workwork/feature": ["../../02-feature/src/index.ts"],
-      "@workwork/domain-login/*": ["../../03-domain/login/*"],
-      "@workwork/domain-schedule/*": ["../../03-domain/schedule/*"],
       "@workwork/domain-user/*": ["../../03-domain/user/*"]
     }
   },
@@ -30,8 +28,6 @@
   "references": [
     { "path": "../../01-core" },
     { "path": "../../02-feature" },
-    { "path": "../../03-domain/login" },
-    { "path": "../../03-domain/schedule" },
     { "path": "../../03-domain/user" }
   ]
 }

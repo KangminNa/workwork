@@ -4,7 +4,7 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "lib": ["es2022"],
-    "outDir": "../../dist/03-domain/login",
+    "outDir": "../../dist/03-domain/user",
     "rootDir": "./",
     "composite": true,
     "strict": true,
@@ -14,7 +14,7 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "tsBuildInfoFile": "../../dist/03-domain/login/.tsbuildinfo"
+    "tsBuildInfoFile": "../../dist/03-domain/user/.tsbuildinfo"
   },
   "include": [
     "./index.ts",
