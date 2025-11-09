@@ -1,7 +1,6 @@
 {
   "files": [],
   "references": [
-    { "path": "./packages/config" },
     { "path": "./01-core" },
     { "path": "./02-feature" },
     { "path": "./03-domain/user" },
@@ -11,7 +10,6 @@
     "baseUrl": ".",
     "lib": ["es2022"],
     "paths": {
-      "@workwork/config/*": ["packages/config/src/*"],
       "@core/*": ["01-core/src/*"],
       "@feature/*": ["02-feature/src/*"],
       "@domain-user/*": ["03-domain/user/*"]

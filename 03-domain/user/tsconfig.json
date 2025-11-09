@@ -18,8 +18,8 @@
   },
   "include": [
     "./index.ts",
+    "./browser/**/*.ts",
     "./server/**/*.ts",
-    "./service/**/*.ts",
     "./shared/**/*.ts"
   ],
   "references": [

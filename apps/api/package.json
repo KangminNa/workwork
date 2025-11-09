@@ -6,12 +6,11 @@
   "dependencies": {
     "express": "^4.18.2",
     "reflect-metadata": "^0.1.13",
-    "@workwork/config": "workspace:*",
     "@workwork/core": "workspace:*",
     "@workwork/feature": "workspace:*"
   },
   "scripts": {
-    "dev": "npx tsx watch src/main.ts",
+    "dev": "dotenv -e ../../infra/config/.env -- tsx watch src/main.ts",
     "build": "tsc"
   },
   "devDependencies": {

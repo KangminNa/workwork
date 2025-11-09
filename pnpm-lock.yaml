@@ -71,9 +71,6 @@ importers:
 
   apps/api:
     dependencies:
-      '@workwork/config':
-        specifier: workspace:*
-        version: link:../../packages/config
       '@workwork/core':
         specifier: workspace:*
         version: link:../../01-core
@@ -124,19 +121,6 @@ importers:
       '@types/react-dom':
         specifier: ^18
         version: 18.3.7(@types/react@18.3.26)
-      typescript:
-        specifier: ^5
-        version: 5.9.3
-
-  packages/config:
-    dependencies:
-      dotenv:
-        specifier: ^16.4.5
-        version: 16.6.1
-    devDependencies:
-      '@types/node':
-        specifier: ^20
-        version: 20.19.24
       typescript:
         specifier: ^5
         version: 5.9.3

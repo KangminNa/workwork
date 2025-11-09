@@ -1,15 +1,17 @@
 import express from 'express';
 import 'reflect-metadata';
 import { initializeApi } from './app';
-import config from '@workwork/config';
 
 async function bootstrap() {
   const app = express();
 
   initializeApi(app);
 
-  app.listen(config.api.port, () => {
-    console.log(`Server listening on port ${config.api.port}`);
+  // Load port from process.env, loaded by dotenv-cli
+  const port = Number(process.env.API_PORT) || 3000;
+
+  app.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
   });
 }
 

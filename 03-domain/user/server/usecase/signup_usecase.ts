@@ -1,6 +1,6 @@
-import { create, findUnique } from '../../../02-feature/src';
+import { create, findUnique } from '../../../../02-feature/src';
 import { hash } from 'bcrypt';
-import { CreateUserInput } from '../shared/user_dto';
+import { CreateUserInput } from '../../shared/user_dto';
 
 export class SignupUsecase {
   async execute(input: CreateUserInput) {
