@@ -1,4 +1,4 @@
-import { BaseUsecase } from '../../01-core/src/types';
+import { BaseUsecase } from '../../01-core/src/server';
 
 type UseCaseClass = new (...args: any[]) => BaseUsecase<any, any>;
 

@@ -1,4 +1,4 @@
-import { prisma } from '../../01-core/src';
+import { prisma } from '../../01-core/src/server';
 import { Prisma } from '@prisma/client';
 
 type Model = Uncapitalize<Prisma.ModelName>;

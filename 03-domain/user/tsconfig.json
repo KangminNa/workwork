@@ -3,7 +3,7 @@
     "target": "es2022",
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "lib": ["es2022"],
+    "lib": ["es2022", "DOM", "DOM.Iterable"],
     "outDir": "../../dist/03-domain/user",
     "rootDir": "./",
     "composite": true,
@@ -14,11 +14,13 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "tsBuildInfoFile": "../../dist/03-domain/user/.tsbuildinfo"
+    "tsBuildInfoFile": "../../dist/03-domain/user/.tsbuildinfo",
+    "jsx": "react-jsx"
   },
   "include": [
     "./index.ts",
     "./browser/**/*.ts",
+    "./browser/**/*.tsx",
     "./server/**/*.ts",
     "./shared/**/*.ts"
   ],

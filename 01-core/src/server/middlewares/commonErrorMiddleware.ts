@@ -1,7 +1,7 @@
-import { Request, Response, NextFunction } from 'express';
-import { HTTP_STATUS, API_ERROR_CODE } from '../types/error_types';
+import { NextFunction, Request, Response } from 'express';
+import { API_ERROR_CODE, HTTP_STATUS } from '../../types/error_types';
 
-export function commonErrorMiddleware(err: any, req: Request, res: Response, next: NextFunction) {
+export const commonErrorMiddleware = (err: any, req: Request, res: Response, next: NextFunction) => {
   console.error(err);
 
   const statusCode = err.statusCode || HTTP_STATUS.INTERNAL_SERVER_ERROR;
@@ -11,8 +11,7 @@ export function commonErrorMiddleware(err: any, req: Request, res: Response, nex
   res.status(statusCode).json({
     error: {
       message,
-      statusCode,
-      errorCode,
+      code: errorCode,
     },
   });
-}
+};
