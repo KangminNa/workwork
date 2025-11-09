@@ -1,15 +1,15 @@
 import express from 'express';
 import 'reflect-metadata';
 import { initializeApi } from './app';
+import config from '@workwork/config';
 
 async function bootstrap() {
   const app = express();
 
   initializeApi(app);
 
-  const port = process.env.PORT || 3000;
-  app.listen(port, () => {
-    console.log(`Server listening on port ${port}`);
+  app.listen(config.api.port, () => {
+    console.log(`Server listening on port ${config.api.port}`);
   });
 }
 

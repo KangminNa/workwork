@@ -23,6 +23,9 @@ importers:
 
   01-core:
     dependencies:
+      dotenv:
+        specifier: ^17.2.3
+        version: 17.2.3
       express:
         specifier: ^4.18.2
         version: 4.21.2
@@ -39,25 +42,6 @@ importers:
       '@workwork/core':
         specifier: workspace:*
         version: link:../01-core
-    devDependencies:
-      '@types/express':
-        specifier: ^4.17.21
-        version: 4.17.25
-      typescript:
-        specifier: ^5.0.0
-        version: 5.9.3
-
-  03-domain/login:
-    dependencies:
-      '@workwork/core':
-        specifier: workspace:*
-        version: link:../../01-core
-      '@workwork/feature':
-        specifier: workspace:*
-        version: link:../../02-feature
-      express:
-        specifier: ^4.18.2
-        version: 4.21.2
     devDependencies:
       '@types/express':
         specifier: ^4.17.21
@@ -87,6 +71,9 @@ importers:
 
   apps/api:
     dependencies:
+      '@workwork/config':
+        specifier: workspace:*
+        version: link:../../packages/config
       '@workwork/core':
         specifier: workspace:*
         version: link:../../01-core
@@ -137,6 +124,19 @@ importers:
       '@types/react-dom':
         specifier: ^18
         version: 18.3.7(@types/react@18.3.26)
+      typescript:
+        specifier: ^5
+        version: 5.9.3
+
+  packages/config:
+    dependencies:
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.6.1
+    devDependencies:
+      '@types/node':
+        specifier: ^20
+        version: 20.19.24
       typescript:
         specifier: ^5
         version: 5.9.3
