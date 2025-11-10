@@ -14,6 +14,7 @@ pnpm-debug.log*
 .next/
 dist/
 build/
+/dist
 
 # Turbo Repo
 .turbo
