@@ -3,18 +3,21 @@ import { BaseApp } from './core/BaseApp';
 import { glob } from 'glob';
 import path from 'path';
 
-async function bootstrap() {
+/**
+ * 애플리케이션의 모든 구성요소를 로드하고 서버를 시작하는
+ * 메인 부트스트랩 함수입니다.
+ */
+export async function bootstrap() {
   // --- Dynamic Module Loading ---
-  // 데코레이터가 Container에 등록을 수행하려면, 해당 파일들이 먼저 임포트되어야 합니다.
-  console.log('🔄 Loading modules...');
+  console.log('🔄 Loading application modules...');
   const modulePaths = await glob('src/{api,services,repositories}/**/*.ts', {
-    cwd: __dirname,
+    cwd: path.join(__dirname, '..'), // CWD를 src의 부모, 즉 'server' 디렉토리로 설정
     absolute: true,
   });
 
   for (const filePath of modulePaths) {
     await import(filePath);
-    console.log(`  - Loaded: ${path.relative(__dirname, filePath)}`);
+    console.log(`  - Loaded: ${path.relative(path.join(__dirname, '..'), filePath)}`);
   }
   console.log('✅ Modules loaded successfully.');
 
@@ -23,8 +26,3 @@ async function bootstrap() {
   const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
   app.start(PORT);
 }
-
-bootstrap().catch((error) => {
-  console.error('❌ Failed to bootstrap the application:', error);
-  process.exit(1);
-});

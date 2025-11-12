@@ -1,0 +1,21 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./server" },
+    { "path": "./browser" }
+  ],
+  "compilerOptions": {
+    "target": "ESNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@core/*": ["server/src/core/*"],
+      "@modules/*": ["server/src/modules/*"]
+    },
+    "outDir": "./dist"
+  }
+}
+

@@ -1,20 +1,20 @@
 {
-  "devDependencies": {
-    "@types/express": "^5.0.5",
-    "@types/glob": "^9.0.0",
-    "@types/node": "^24.10.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+  "name": "@workwork/monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "Env",
+    "server",
+    "browser",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:server": "npm run dev --workspace=@app/server",
+    "dev:browser": "npm run dev --workspace=@app/browser",
+    "build:server": "npm run build --workspace=@app/server",
+    "build:browser": "npm run build --workspace=@app/browser"
   },
   "dependencies": {
-    "@prisma/client": "^6.19.0",
-    "bullmq": "^5.63.0",
-    "dotenv": "^17.2.3",
-    "express": "^5.1.0",
-    "glob": "^11.0.3",
-    "ioredis": "^5.8.2",
-    "prisma": "^6.19.0",
-    "reflect-metadata": "^0.2.2",
-    "socket.io": "^4.8.1"
+    "@workwork/env": "file:./Env"
   }
 }

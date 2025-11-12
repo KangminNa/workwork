@@ -1,0 +1,14 @@
+{
+  "name": "@app/server",
+  "version": "1.0.0",
+  "main": "dist/server/index.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn src/index.ts",
+    "build": "tsc -p ../packages/tsconfig/server.json"
+  },
+  "dependencies": {
+    "@workwork/env": "file:../Env"
+  },
+  "devDependencies": {}
+}
+
