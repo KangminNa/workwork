@@ -1,0 +1,13 @@
+{
+  "extends": "../Env/tsconfig/base.json",
+  "compilerOptions": {
+    "outDir": "../dist/core",
+    "rootDir": ".",
+    "composite": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
+  },
+  "include": ["**/*"],
+  "exclude": ["node_modules", "dist"]
+}
+

@@ -1,0 +1,23 @@
+{
+  "extends": "../Env/tsconfig/base.json",
+  "compilerOptions": {
+    "outDir": "../dist/auth",
+    "rootDir": ".",
+    "composite": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "jsx": "react-jsx",
+    "paths": {
+      "@core/*": ["../core/*"],
+      "@auth/shared": ["./shared"],
+      "@common/*": ["../common/*"]
+    }
+  },
+  "include": ["**/*"],
+  "exclude": ["node_modules", "dist", "browser/vite.config.ts", "browser/index.html"],
+  "references": [
+    { "path": "../core" },
+    { "path": "../common" }
+  ]
+}
+

@@ -1,162 +1,347 @@
-# WorkWork Monorepo
+# 🚀 Workwork - 모듈 중심 프레임워크
 
-전역 환경 설정을 통한 통합 모노레포 프로젝트입니다.
+> **"Controller, Service, Repository만 만들면 끝!"**
+> 
+> 프레임워크 구조를 몰라도 비즈니스 로직에만 집중할 수 있는 모듈 중심 개발 환경
+
+---
 
 ## 📁 프로젝트 구조
 
-이 프로젝트는 Env 폴더를 통해 전역적으로 의존성을 관리하는 모노레포입니다.
-
 ```
-root/
-├── Env/                    # 전역 환경 및 의존성 관리
-│   ├── package.json        # 모든 공통 의존성 정의
-│   ├── tsconfig/           # 공통 TypeScript 설정
-│   │   ├── base.json       # 기본 TypeScript 설정
-│   │   ├── server.json     # 서버용 TypeScript 설정
-│   │   └── browser.json    # 브라우저용 TypeScript 설정
-│   └── README.md           # Env 폴더 사용 가이드
-├── server/                 # Express + BullMQ 서버
-│   ├── src/
-│   │   ├── core/           # 핵심 프레임워크 (DI, 데코레이터)
-│   │   ├── modules/        # 비즈니스 로직 모듈
-│   │   ├── app.ts
-│   │   └── index.ts
-│   ├── tsconfig.json       # Env/tsconfig/server.json 확장
-│   └── package.json        # @workwork/env 의존성 포함
-├── browser/                # React + Vite 프론트엔드
-│   ├── src/
-│   │   ├── components/     # React 컴포넌트
-│   │   ├── hooks/          # 커스텀 훅
-│   │   ├── pages/          # 페이지 컴포넌트
-│   │   ├── services/       # API 서비스
-│   │   └── index.ts
-│   ├── tsconfig.json       # Env/tsconfig/browser.json 확장
-│   └── package.json        # @workwork/env 의존성 포함
-└── dist/                   # 통합 빌드 출력
-    ├── server/
-    └── browser/
+workwork/
+├── Env/              # 공통 의존성 & 설정
+│   ├── package.json
+│   ├── tsconfig/
+│   └── db/
+│
+├── core/             # 프레임워크 (건드릴 필요 없음)
+│   ├── server/       # BaseRepository, BaseService, BaseController
+│   ├── browser/      # BaseApiService
+│   └── shared/       # 공통 타입
+│
+├── auth/             # 인증 모듈 (예시)
+│   ├── server/       # 서버 비즈니스 로직
+│   ├── browser/      # UI 컴포넌트
+│   └── shared/       # 공유 타입
+│
+├── common/           # 공통 컴포넌트
+│   ├── browser/      # Button, Input 등
+│   └── shared/       # UI 타입
+│
+└── dist/             # 빌드 결과
 ```
 
-## 🌟 주요 특징
+---
 
-### 1. Env 폴더를 통한 중앙 집중식 의존성 관리
-- **통합 의존성 관리**: 모든 패키지가 동일한 버전의 라이브러리 사용
-- **디스크 공간 절약**: 중복 설치 방지
-- **간편한 업데이트**: 의존성 업데이트가 한 곳에서 관리됨
-- **TypeScript 설정 통합**: 공통 tsconfig 설정도 Env에서 관리
+## 🎯 핵심 철학
 
-### 2. 패키지 의존성 구조
-각 서브 패키지는 `@workwork/env`를 참조:
+### 1. **모듈 중심 구조**
+- 각 기능(auth, board 등)이 독립된 모듈
+- 모듈마다 `server`, `browser`, `shared` 폴더
 
-```json
-{
-  "dependencies": {
-    "@workwork/env": "file:../Env"
+### 2. **역할 분리**
+- **Repository**: CRUD만 (어떤 테이블의 어떤 컬럼을)
+- **Service**: 비즈니스 로직만 (검증, 변환, 트랜잭션)
+- **Controller**: 요청/응답만 (HTTP, Socket, Worker)
+
+### 3. **자동 의존성 주입**
+```typescript
+@Service('userService')
+export class UserService {
+  constructor(
+    private userRepository: UserRepository  // 👈 자동 주입!
+  ) {}
+}
+```
+
+### 4. **타입 공유**
+- `shared/types.ts`에 DTO 정의
+- 서버-클라이언트 자동 타입 동기화
+
+---
+
+## ⚡ Quick Start
+
+### 1. 설치
+```bash
+npm install
+```
+
+### 2. 데이터베이스 설정
+```bash
+# Docker로 PostgreSQL & Redis 실행
+npm run db:setup
+```
+
+### 3. 개발 서버 실행
+```bash
+# 서버 (포트 3000)
+npm run dev:auth:server
+
+# 브라우저 (포트 5173)
+npm run dev:auth:browser
+```
+
+### 4. 빌드
+```bash
+npm run build
+```
+
+---
+
+## 📦 새 모듈 만들기
+
+### 예시: Board 모듈
+
+#### 1. 폴더 생성
+```bash
+mkdir -p board/{server,browser,shared}
+```
+
+#### 2. Shared Types 정의
+```typescript
+// board/shared/types.ts
+export interface BoardDto {
+  id: number;
+  title: string;
+  content: string;
+  userId: number;
+}
+
+export interface CreateBoardDto {
+  title: string;
+  content: string;
+}
+```
+
+#### 3. Server 작성
+
+```typescript
+// board/server/BoardRepository.ts
+import { BaseRepository } from '../../core/server/BaseRepository.js';
+import { Repository } from '../../core/server/decorators/index.js';
+
+@Repository('boardRepository')
+export class BoardRepository extends BaseRepository {
+  protected get model() {
+    return this.db.board;
+  }
+
+  async findByUserId(userId: number) {
+    return await this.model.findMany({ where: { userId } });
   }
 }
 ```
 
-### 3. TypeScript 설정 상속
-각 패키지의 `tsconfig.json`은 `Env/tsconfig`의 설정을 확장:
+```typescript
+// board/server/BoardService.ts
+import { BaseService } from '../../core/server/BaseService.js';
+import { Service } from '../../core/server/decorators/index.js';
 
-```json
-// server/tsconfig.json
-{
-  "extends": "../Env/tsconfig/server.json"
-}
+@Service('boardService')
+export class BoardService extends BaseService {
+  constructor(
+    private boardRepository: BoardRepository  // 👈 자동 주입!
+  ) {
+    super();
+  }
 
-// browser/tsconfig.json
-{
-  "extends": "../Env/tsconfig/browser.json"
-}
-```
+  async createBoard(data: CreateBoardDto, userId: number) {
+    // 비즈니스 로직: 검증
+    if (!data.title || data.title.length < 3) {
+      throw new Error('Title too short');
+    }
 
-## 🚀 시작하기
-
-### 설치
-
-```bash
-# Env 폴더에서 공통 의존성 설치
-cd Env
-npm install
-cd ..
-
-# 각 패키지의 의존성 설치
-cd server && npm install && cd ..
-cd browser && npm install && cd ..
-```
-
-### 개발 서버 실행
-
-```bash
-# 서버 실행
-cd server
-npm run dev
-
-# 브라우저 앱 실행 (새 터미널)
-cd browser
-npm run dev
-```
-
-### 빌드
-
-```bash
-# 서버 빌드
-cd server
-npm run build
-
-# 브라우저 앱 빌드
-cd browser
-npm run build
-```
-
-## 🔧 의존성 관리
-
-### 새로운 의존성 추가하기
-
-1. `Env/package.json`에 의존성 추가
-2. Env 폴더에서 `npm install` 실행
-
-```bash
-# 예시
-cd Env
-# package.json 수정 후
-npm install
-cd ..
-```
-
-### 패키지별 특정 의존성
-
-특정 패키지에만 필요한 의존성은 해당 패키지의 `package.json`에 추가할 수 있습니다.
-
-```json
-{
-  "dependencies": {
-    "@workwork/env": "file:../Env",
-    "특정-패키지-전용-라이브러리": "^1.0.0"
+    // Repository 호출
+    return await this.boardRepository.create({
+      ...data,
+      userId,
+    });
   }
 }
 ```
 
-## 📚 추가 정보
+```typescript
+// board/server/BoardController.ts
+import { BaseController } from '../../core/server/BaseController.js';
+import { Controller } from '../../core/server/decorators/index.js';
 
-- [Env 폴더 사용 가이드](./Env/README.md)
+@Controller('http', '/api/boards')
+export class BoardController extends BaseController {
+  constructor(
+    private boardService: BoardService  // 👈 자동 주입!
+  ) {
+    super();
+  }
 
-## 🛠 기술 스택
+  protected async executeHandler({ req, res }: any) {
+    const boards = await this.boardService.getAllBoards();
+    res.json({ success: true, data: boards });
+  }
+}
+```
 
-### Backend (Server)
-- Express.js
-- BullMQ (작업 큐)
-- Socket.io
-- TypeScript
+#### 4. Browser 작성
 
-### Frontend (Browser)
-- React
-- Vite
-- TypeScript
-- Socket.io Client
+```typescript
+// board/browser/services/boardApi.ts
+import { BaseApiService } from '../../../core/browser/BaseApiService';
 
-### 공통
-- TypeScript
-- Node.js
+export class BoardApiService extends BaseApiService {
+  async getBoards() {
+    return await this.get('/api/boards');
+  }
+}
+```
 
+```typescript
+// board/browser/hooks/useBoard.ts
+export const useBoard = () => {
+  const [boards, setBoards] = useState([]);
+  
+  const fetchBoards = async () => {
+    const response = await boardApi.getBoards();
+    if (response.success) {
+      setBoards(response.data);
+    }
+  };
+
+  return { boards, fetchBoards };
+};
+```
+
+```typescript
+// board/browser/components/BoardList.tsx
+export const BoardList = () => {
+  const { boards, fetchBoards } = useBoard();
+  
+  useEffect(() => {
+    fetchBoards();
+  }, []);
+
+  return (
+    <div>
+      {boards.map(board => (
+        <div key={board.id}>{board.title}</div>
+      ))}
+    </div>
+  );
+};
+```
+
+---
+
+## 🏗️ 아키텍처
+
+### 의존성 방향
+```
+common (공통 컴포넌트)
+  ↑
+core (프레임워크)
+  ↑
+auth, board, ... (비즈니스 모듈)
+```
+
+**규칙:**
+- ✅ auth → core
+- ✅ auth → common
+- ❌ core → auth
+- ❌ auth → board
+
+### 계층 구조 (각 모듈 내)
+```
+Controller (요청/응답)
+    ↓
+Service (비즈니스 로직)
+    ↓
+Repository (CRUD)
+    ↓
+Database
+```
+
+---
+
+## 🔧 설정
+
+### TypeScript 설정
+모든 모듈의 tsconfig.json은 `Env/tsconfig/`를 상속:
+- `Env/tsconfig/server.json` - 서버용
+- `Env/tsconfig/browser.json` - 브라우저용
+
+### 의존성 관리
+공통 의존성은 `Env/package.json`에:
+- express, socket.io, prisma
+- react, axios
+
+모듈별 추가 의존성은 각 모듈의 package.json에
+
+---
+
+## 💡 핵심 원칙
+
+### 1. Repository는 CRUD만
+```typescript
+// ✅ Good
+async findByUsername(username: string) {
+  return await this.model.findUnique({ where: { username } });
+}
+
+// ❌ Bad - 비즈니스 로직 포함
+async findActiveUser(username: string) {
+  const user = await this.model.findUnique({ where: { username } });
+  if (!user.isActive) throw new Error('User not active');  // ❌
+  return user;
+}
+```
+
+### 2. Service는 비즈니스 로직만
+```typescript
+// ✅ Good
+async register(data: CreateUserDto) {
+  // 검증
+  if (data.password.length < 6) throw new Error('Password too short');
+  
+  // 중복 체크
+  const existing = await this.userRepository.findByUsername(data.username);
+  if (existing) throw new Error('Username exists');
+  
+  // 해싱
+  const hashed = this.hashPassword(data.password);
+  
+  // 저장
+  return await this.userRepository.create({ ...data, password: hashed });
+}
+```
+
+### 3. Controller는 요청/응답만
+```typescript
+// ✅ Good
+protected async executeHandler({ req, res }: any) {
+  try {
+    const result = await this.userService.register(req.body);
+    res.json({ success: true, data: result });
+  } catch (error) {
+    res.status(400).json({ success: false, error: error.message });
+  }
+}
+```
+
+---
+
+## 📚 더 자세한 내용
+
+- [모듈 구조 상세](./MODULE_STRUCTURE.md)
+- [빌드 가이드](./BUILD_GUIDE.md)
+
+---
+
+## 🎉 장점
+
+1. **개발자 친화적**: Controller, Service, Repository만 만들면 끝
+2. **자동 DI**: 생성자에 타입만 명시하면 자동 주입
+3. **타입 안전**: 서버-클라이언트 타입 공유
+4. **확장 용이**: 새 모듈 추가가 쉬움
+5. **유지보수성**: 명확한 역할 분리
+
+**모듈만 추가하면 프레임워크가 알아서!** 🚀

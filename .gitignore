@@ -1,6 +1,26 @@
 node_modules
 dist
 .env
+.env.local
+.env.*.local
 *.log
 .DS_Store
+
+# TypeScript
+*.tsbuildinfo
+
+# Prisma
+.prisma/
+migrations/
+
+# Database
+*.db
+*.sqlite
+
+# Docker
+docker-compose.override.yml
+
+# Build artifacts
+*/dist/
+*/build/
 
