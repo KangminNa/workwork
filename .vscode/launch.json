@@ -1,0 +1,95 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "🚀 Auth Server (Debug)",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/ts-node-dev",
+      "runtimeArgs": [
+        "--respawn",
+        "--transpile-only",
+        "--project",
+        "${workspaceFolder}/tsconfig.dev.json",
+        "${workspaceFolder}/auth/server/app.ts"
+      ],
+      "skipFiles": ["<node_internals>/**"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "restart": true,
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "🔧 Auth Server (ts-node)",
+      "program": "${workspaceFolder}/auth/server/app.ts",
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register",
+        "-r",
+        "tsconfig-paths/register"
+      ],
+      "skipFiles": ["<node_internals>/**"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "env": {
+        "NODE_ENV": "development",
+        "TS_NODE_PROJECT": "${workspaceFolder}/auth/tsconfig.json"
+      },
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "🏗️ Build All",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "build"],
+      "skipFiles": ["<node_internals>/**"],
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "🗄️ Prisma Studio",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "prisma:studio"],
+      "skipFiles": ["<node_internals>/**"],
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "🔄 Prisma Migrate",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "prisma:migrate"],
+      "skipFiles": ["<node_internals>/**"],
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "🌐 Auth Browser (Chrome)",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}/auth/browser",
+      "sourceMaps": true,
+      "preLaunchTask": "Start Auth Browser"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "🚀 Full Stack (Server + Browser)",
+      "configurations": ["🚀 Auth Server (Debug)", "🌐 Auth Browser (Chrome)"],
+      "presentation": {
+        "hidden": false,
+        "group": "fullstack",
+        "order": 1
+      },
+      "stopAll": true
+    }
+  ]
+}

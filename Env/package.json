@@ -8,7 +8,7 @@
     "build:common": "tsc --project common/tsconfig.json",
     "build:auth": "tsc --project auth/tsconfig.json",
     "build": "npm run build:core && npm run build:common && npm run build:auth",
-    "dev:auth:server": "ts-node-dev --respawn --transpile-only auth/server/app.ts",
+    "dev:auth:server": "NODE_ENV=development ts-node-dev --respawn --transpile-only --project tsconfig.dev.json auth/server/app.ts",
     "dev:auth:browser": "vite auth/browser",
     "prisma:generate": "cd Env && prisma generate",
     "prisma:migrate": "cd Env && prisma migrate dev",
@@ -51,4 +51,3 @@
     "@types/react-router-dom": "^5.3.3"
   }
 }
-
