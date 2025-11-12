@@ -1,0 +1,6 @@
+{
+  "name": "@workwork/core",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Core framework module - All dependencies managed by @workwork/env"
+}

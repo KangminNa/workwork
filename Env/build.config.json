@@ -1,0 +1,33 @@
+{
+  "modules": {
+    "core": {
+      "name": "@workwork/core",
+      "description": "Core framework module",
+      "buildCommand": "tsc --project ../core/tsconfig.json",
+      "dependencies": []
+    },
+    "common": {
+      "name": "@workwork/common",
+      "description": "Common components module",
+      "buildCommand": "tsc --project ../common/tsconfig.json",
+      "dependencies": []
+    },
+    "auth": {
+      "name": "@workwork/auth",
+      "description": "Authentication module",
+      "buildCommand": "tsc --project ../auth/tsconfig.json",
+      "serverCommand": "ts-node-dev --respawn --transpile-only ../auth/server/app.ts",
+      "browserCommand": "vite ../auth/browser",
+      "dependencies": ["core", "common"],
+      "additionalDeps": {
+        "bcryptjs": "^2.4.3",
+        "react-router-dom": "^6.26.0"
+      },
+      "additionalDevDeps": {
+        "@types/bcryptjs": "^2.4.6",
+        "@types/react-router-dom": "^5.3.3"
+      }
+    }
+  }
+}
+

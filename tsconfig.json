@@ -1,10 +1,1 @@
-{
-  "extends": "./Env/tsconfig/base.json",
-  "files": [],
-  "references": [
-    { "path": "./core" },
-    { "path": "./auth" },
-    { "path": "./common" }
-  ]
-}
-
+Env/tsconfig.json

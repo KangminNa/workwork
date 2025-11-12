@@ -1,0 +1,26 @@
+{
+  "name": "@workwork/monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "Env"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace=@workwork/env",
+    "build:core": "npm run build:core --workspace=@workwork/env",
+    "build:common": "npm run build:common --workspace=@workwork/env",
+    "build:auth": "npm run build:auth --workspace=@workwork/env",
+    "dev:auth:server": "npm run dev:auth:server --workspace=@workwork/env",
+    "dev:auth:browser": "npm run dev:auth:browser --workspace=@workwork/env",
+    "prisma:generate": "npm run prisma:generate --workspace=@workwork/env",
+    "prisma:migrate": "npm run prisma:migrate --workspace=@workwork/env",
+    "prisma:studio": "npm run prisma:studio --workspace=@workwork/env",
+    "db:setup": "npm run db:setup --workspace=@workwork/env",
+    "db:up": "npm run db:up --workspace=@workwork/env",
+    "db:down": "npm run db:down --workspace=@workwork/env"
+  },
+  "dependencies": {
+    "@workwork/env": "file:./Env"
+  }
+}
+
