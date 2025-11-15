@@ -1,6 +1,0 @@
-{
-  "name": "@workwork/common",
-  "version": "1.0.0",
-  "private": true,
-  "description": "Common components module - All dependencies managed by @workwork/env"
-}
