@@ -1,0 +1,6 @@
+{
+  "extends": "../config/tsconfig.browser.json",
+  "include": ["browser/**/*", "shared/**/*"],
+  "exclude": ["node_modules", "server/**/*"]
+}
+
