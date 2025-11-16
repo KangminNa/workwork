@@ -2,27 +2,31 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 
+// config/paths.js에서 설정 가져오기
+const { PATHS, PORTS, API } = require('../config/paths');
+
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@core': path.resolve(__dirname, './'),
-      '@common': path.resolve(__dirname, '../common'),
-      '@config': path.resolve(__dirname, '../config'),
+      '@core': PATHS.core,
+      '@common': PATHS.common,
+      '@config': PATHS.config,
     },
   },
-  root: './browser',
+  root: path.join(PATHS.core, 'browser'),
+  publicDir: path.join(PATHS.core, 'browser/public'),
   server: {
-    port: 3000,
+    port: PORTS.clientCore,
     proxy: {
       '/api': {
-        target: 'http://localhost:4000',
+        target: API.baseUrl,
         changeOrigin: true,
       },
     },
   },
   build: {
-    outDir: '../dist/client/core',
+    outDir: path.join(PATHS.distClient, 'core'),
     emptyOutDir: true,
   },
 });

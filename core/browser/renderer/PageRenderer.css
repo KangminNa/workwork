@@ -1,0 +1,133 @@
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Layout variants */
+.page-container.layout-centered {
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.page-container.layout-default {
+  background-color: #ffffff;
+}
+
+/* Header */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-logo a {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+}
+
+.header-nav {
+  display: flex;
+  gap: 30px;
+}
+
+.header-nav a {
+  color: #666;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.header-nav a:hover {
+  color: #3498db;
+}
+
+.header-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-user img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+/* Body */
+.page-body {
+  flex: 1;
+  padding: 20px;
+}
+
+.layout-centered .page-body {
+  padding: 0;
+  width: 100%;
+  max-width: 500px;
+}
+
+/* Footer */
+.page-footer {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  padding: 40px;
+  margin-top: auto;
+}
+
+.footer-copyright {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  margin-bottom: 20px;
+}
+
+.footer-link-group h4 {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.footer-link-group ul {
+  list-style: none;
+}
+
+.footer-link-group li {
+  margin-bottom: 8px;
+}
+
+.footer-link-group a {
+  color: #bdc3c7;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-link-group a:hover {
+  color: #ffffff;
+}
+
+.footer-social {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.footer-social a {
+  color: #bdc3c7;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-social a:hover {
+  color: #3498db;
+}
+

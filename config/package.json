@@ -4,21 +4,13 @@
   "description": "Modular Express + React Application",
   "private": true,
   "scripts": {
-    "dev:server:core": "cd ../core && nodemon --watch 'server/**/*' --watch 'shared/**/*' --ext ts --exec 'ts-node' server/index.ts",
-    "dev:server:common": "cd ../common && nodemon --watch 'server/**/*' --watch 'shared/**/*' --ext ts --exec 'ts-node' server/index.ts",
-    "dev:client:core": "cd ../core && vite",
-    "dev:client:common": "cd ../common && vite",
-    "build:server:core": "cd ../core && tsc --project tsconfig.server.json",
-    "build:server:common": "cd ../common && tsc --project tsconfig.server.json",
-    "build:client:core": "cd ../core && vite build",
-    "build:client:common": "cd ../common && vite build",
-    "build:server": "npm run build:server:core && npm run build:server:common",
-    "build:client": "npm run build:client:core && npm run build:client:common",
+    "dev:server": "cd /Users/nagangmin/Desktop/workwork/core && nodemon --watch server --watch ../common/shared --ext ts --exec 'ts-node --project tsconfig.server.json' server/index.ts",
+    "dev:client": "cd /Users/nagangmin/Desktop/workwork/core && vite",
+    "build:server": "cd /Users/nagangmin/Desktop/workwork/core && tsc --project tsconfig.server.json",
+    "build:client": "cd /Users/nagangmin/Desktop/workwork/core && vite build",
     "build": "npm run build:server && npm run build:client",
-    "clean": "rm -rf ../dist",
-    "lint:core": "cd ../core && eslint . --ext .ts,.tsx",
-    "lint:common": "cd ../common && eslint . --ext .ts,.tsx",
-    "lint": "npm run lint:core && npm run lint:common"
+    "clean": "rm -rf /Users/nagangmin/Desktop/workwork/dist",
+    "lint": "cd /Users/nagangmin/Desktop/workwork/core && eslint . --ext .ts,.tsx"
   },
   "dependencies": {
     "express": "^4.18.2",

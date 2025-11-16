@@ -1,10 +1,21 @@
 {
   "extends": "../config/tsconfig.server.json",
   "compilerOptions": {
+    "outDir": "../dist/server",
     "rootDir": ".",
-    "outDir": "../dist/server/core"
+    "baseUrl": ".",
+    "paths": {
+      "@common/*": ["../common/*"]
+    }
   },
-  "include": ["server/**/*", "shared/**/*"],
-  "exclude": ["node_modules", "browser/**/*"]
+  "include": [
+    "server/**/*.ts",
+    "shared/**/*.ts",
+    "../common/shared/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "browser",
+    "dist"
+  ]
 }
-
