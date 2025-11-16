@@ -15,13 +15,18 @@ workwork/
 │   ├── package.json       # 유일한 package.json
 │   ├── tsconfig.*.json
 │   ├── paths.js
-│   └── constants.js
+│   ├── constants.js
+│   └── prisma/            # Prisma 스키마
+│       └── schema.prisma
 │
 ├── core/                  # 🔧 핵심 인프라
 │   ├── server/            # Express 서버
 │   │   ├── app.ts         # 서버 메인
 │   │   ├── controllers/   # BaseController, GetBaseController
-│   │   └── resolver/      # AutoResolver
+│   │   ├── resolver/      # AutoResolver
+│   │   ├── repositories/  # BaseRepository (Prisma 추상화)
+│   │   ├── services/      # BaseService
+│   │   └── database/      # PrismaClient
 │   │
 │   └── browser/           # React 앱
 │       ├── app.tsx        # 브라우저 메인
@@ -221,6 +226,9 @@ export class GetLoginPageController extends GetBaseController {
 - **BaseController**: 모든 컨트롤러의 기반 클래스
 - **GetBaseController**: GET 요청용 기반 클래스 (PageModel 반환)
 - **AutoResolver**: identifier 기반 자동 라우팅
+- **BaseRepository**: Prisma ORM 추상화 기반 클래스
+- **BaseService**: 비즈니스 로직 기반 클래스
+- **PrismaClient**: Prisma 싱글톤 인스턴스
 
 ### Core Browser
 - **app.tsx**: React 앱 초기화
@@ -255,8 +263,75 @@ export class GetLoginPageController extends GetBaseController {
 
 - **Server**: Node.js, Express, TypeScript
 - **Client**: React, TypeScript, Vite
+- **Database**: Prisma ORM, SQLite (개발), PostgreSQL (프로덕션)
 - **Dev Tools**: nodemon, ts-node, ESLint
 - **Architecture**: Server-Driven UI, Monorepo
+
+## 🚀 빌드 및 실행
+
+### 개발 모드
+
+```bash
+# 서버 개발 모드 (자동 재시작)
+npm run dev:server
+
+# 클라이언트 개발 모드 (HMR)
+npm run dev:client
+```
+
+### 프로덕션 빌드
+
+```bash
+# 전체 빌드 (서버 + 클라이언트)
+npm run build
+
+# 서버만 빌드
+npm run build:server
+
+# 클라이언트만 빌드
+npm run build:client
+
+# 빌드 정리
+npm run clean
+```
+
+### 프로덕션 실행
+
+```bash
+# 1. 의존성 설치
+npm install
+
+# 2. Prisma 클라이언트 생성
+npm run prisma:generate
+
+# 3. 데이터베이스 마이그레이션
+npm run prisma:migrate:deploy
+
+# 4. 빌드
+npm run build
+
+# 5. 서버 실행
+node dist/server/core/server/index.js
+
+# 6. 클라이언트 서빙 (별도 터미널 또는 Nginx)
+npx serve dist/client/core -p 3000
+```
+
+### 빌드 결과
+
+```
+dist/
+├── server/          # 서버 빌드 (JavaScript + .d.ts)
+│   ├── core/
+│   ├── common/
+│   └── login/
+└── client/          # 클라이언트 빌드 (정적 파일)
+    └── core/
+        ├── index.html
+        └── assets/
+```
+
+**상세 빌드 가이드**: [BUILD.md](BUILD.md) 참조
 
 ## 🤝 기여 가이드
 

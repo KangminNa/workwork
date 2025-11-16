@@ -65,6 +65,34 @@ export abstract class BaseController {
   }
 
   /**
+   * 클라이언트 에러 (400)
+   */
+  protected clientError(res: Response, message: string = 'Bad Request'): Response {
+    return this.fail(res, message, 400);
+  }
+
+  /**
+   * 인증 실패 (401)
+   */
+  protected unauthorized(res: Response, message: string = 'Unauthorized'): Response {
+    return this.fail(res, message, 401);
+  }
+
+  /**
+   * 권한 없음 (403)
+   */
+  protected forbidden(res: Response, message: string = 'Forbidden'): Response {
+    return this.fail(res, message, 403);
+  }
+
+  /**
+   * 찾을 수 없음 (404)
+   */
+  protected notFound(res: Response, message: string = 'Not Found'): Response {
+    return this.fail(res, message, 404);
+  }
+
+  /**
    * 에러 핸들링
    */
   protected handleError(error: any, res: Response): void {

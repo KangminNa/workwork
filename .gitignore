@@ -7,27 +7,51 @@ pnpm-lock.yaml
 # Build outputs
 dist/
 build/
-*.log
 *.tsbuildinfo
 
 # Environment variables
 .env
 .env.local
-.env.*.local
-!.env.example
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+pnpm-debug.log*
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*~
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
-.DS_Store
+*.swn
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+*.sublime-project
 
-# OS
-.DS_Store
-Thumbs.db
-*.iml
+# TypeScript
+*.tsbuildinfo
+*.d.ts.map
 
 # Testing
 coverage/
@@ -35,31 +59,38 @@ coverage/
 *.lcov
 
 # Temporary files
+tmp/
+temp/
 *.tmp
-*.temp
+
+# Database
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Prisma data (루트의 prisma 폴더는 데이터 저장용)
+/prisma/
+!/prisma/.gitkeep
+
+# Prisma migrations backup
+config/prisma/migrations/**/migration.sql.bak
+
+# Cache
 .cache/
-.vite/
-
-# Debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
-
-# TypeScript
-*.tsbuildinfo
-
-# Optional npm cache directory
-.npm
-
-# Optional eslint cache
+.parcel-cache/
 .eslintcache
+.stylelintcache
 
-# Optional REPL history
-.node_repl_history
+# Vite
+.vite/
+vite.config.*.timestamp-*
 
-# Output of 'npm pack'
-*.tgz
+# Next.js (if used later)
+.next/
+out/
 
-# Yarn Integrity file
-.yarn-integrity
+# Misc
+*.pem
+.vercel
+.turbo

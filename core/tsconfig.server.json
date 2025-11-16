@@ -2,16 +2,17 @@
   "extends": "../config/tsconfig.server.json",
   "compilerOptions": {
     "outDir": "../dist/server",
-    "rootDir": ".",
-    "baseUrl": ".",
+    "baseUrl": "..",
+    "rootDir": "..",
     "paths": {
       "@common/*": ["../common/*"]
     }
   },
   "include": [
-    "server/**/*.ts",
-    "shared/**/*.ts",
-    "../common/shared/**/*.ts"
+    "../core/server/**/*.ts",
+    "../common/shared/**/*.ts",
+    "../login/server/**/*.ts",
+    "../login/shared/**/*.ts"
   ],
   "exclude": [
     "node_modules",

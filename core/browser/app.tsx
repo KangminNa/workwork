@@ -68,8 +68,9 @@ class App extends React.Component<{}, AppState> {
   private registerRoutes() {
     // 모든 비즈니스 모듈의 라우트를 여기서 등록
     pageRouter.registerRoutes({
-      '/': '/pages/main',
+      '/': '/pages/login',      // 기본 페이지를 로그인으로
       '/login': '/pages/login',
+      '/dashboard': '/pages/dashboard',
       '/schedule': '/pages/schedule',
     });
 
