@@ -1,0 +1,11 @@
+{
+  "extends": "../config/packages/tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": "."
+  },
+  "include": [
+    "server",
+    "browser",
+    "shared"
+  ]
+}

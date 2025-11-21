@@ -1,0 +1,1 @@
+export class HttpClient{async get(u){return fetch(u).then(r=>r.json())}}
