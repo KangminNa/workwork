@@ -99,6 +99,7 @@ export class ActionResolver {
           message: result.message,
         };
       } else {
+        this.notifyServerValidation(result?.error?.message || result.message);
         // 실패 처리
         await this.handleError(action, result);
         return {
@@ -108,6 +109,7 @@ export class ActionResolver {
       }
     } catch (error) {
       console.error(`[ActionResolver] Error executing ${identifier}:`, error);
+      this.notifyServerValidation('서버 요청 중 오류가 발생했습니다.');
       await this.handleError(action, { message: 'Network error' });
       return {
         success: false,
@@ -181,6 +183,17 @@ export class ActionResolver {
   }
 
   /**
+   * 서버 유효성 체크 결과 팝업 노출
+   */
+  private notifyServerValidation(message?: string): void {
+    if (!message) {
+      return;
+    }
+
+    window.alert(message);
+  }
+
+  /**
    * 등록된 액션 목록
    */
   getRegisteredActions(): string[] {
@@ -198,4 +211,3 @@ export class ActionResolver {
 
 // 싱글톤 인스턴스
 export const actionResolver = new ActionResolver();
-
