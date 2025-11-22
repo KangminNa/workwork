@@ -1,0 +1,32 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        
+      {
+        "name": "Debug Core Server",
+        "type": "node",
+        "request": "launch",
+        "runtimeExecutable": "pnpm",
+        "runtimeArgs": [
+          "-C",
+          "config/packages",
+          "exec",
+          "ts-node-dev",
+          "--respawn",
+          "--transpile-only",
+          "../../core/server/main.ts"
+        ],
+        "console": "integratedTerminal",
+        "autoAttachChildProcesses": true,
+        "skipFiles": ["<node_internals>/**"],
+        "envFile": "${workspaceFolder}/config/env/.env.local"
+      },
+      {
+        "name": "Attach to Core Server",
+        "type": "node",
+        "request": "attach",
+        "port": 9229,
+        "restart": true
+      }
+    ]
+  }

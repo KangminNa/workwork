@@ -1,0 +1,16 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "../../dist",
+    "rootDir": "../../"
+  },
+  "files": [],
+  "references": [
+    { "path": "../../auth" },
+    { "path": "../../calendar" },
+    { "path": "../../common" },
+    { "path": "../../core" }
+    // { "path": "../../signup" },  // signup, notification은 현재 디렉토리가 없으므로 주석 처리
+    // { "path": "../../notification" }
+  ]
+}

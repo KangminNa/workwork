@@ -1,0 +1,9 @@
+
+packages:
+  - "config/packages"
+  - "core"
+  - "common"
+  - "auth"
+  - "calendar"
+  - "signup"
+  - "notification"

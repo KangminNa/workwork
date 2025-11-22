@@ -1,10 +1,11 @@
+import { Request, Response, NextFunction } from "express";
 
-export class BaseController {
-  wrap(handler) {
-    return async (req, res, next) => {
+export abstract class BaseController {
+  protected wrap(handler: (req: Request, res: Response) => any) {
+    return async (req: Request, res: Response, next: NextFunction) => {
       try {
-        const result = await handler.call(this, req, res);
-        if (!res.headersSent) res.json(result);
+        const out = await handler.call(this, req, res);
+        if (!res.headersSent) res.json(out);
       } catch (err) {
         next(err);
       }

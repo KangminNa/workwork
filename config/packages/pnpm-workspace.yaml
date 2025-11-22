@@ -1,7 +1,0 @@
-
-packages:
-  - "../../core"
-  - "../../common"
-  - "../../auth"
-  - "../../calendar"
-  - "../../config"
