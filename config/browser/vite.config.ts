@@ -16,5 +16,12 @@ export default defineConfig({
     outDir: path.resolve(__dirname, "../../dist/web"),
     emptyOutDir: true,
   },
-  server: { port: 5173 }
+  server: {
+    host: "127.0.0.1",
+    port: 5173,
+    proxy: {
+      // API calls (e.g., /screen/*) are served by the Express server on 3000
+      "/screen": "http://127.0.0.1:3000"
+    }
+  }
 });

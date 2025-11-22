@@ -5,10 +5,10 @@ import "./styles/main.css";
 import { App } from "./App";
 
 import { registerCoreWidgets } from "./register-widgets";
-import { registerTestWidgets } from "../../test/browser/register-test-widgets";
+import { registerTestPages } from "../../test/browser/register-test-pages";
 
 registerCoreWidgets();
-registerTestWidgets();
+registerTestPages();
 
 const rootEl = document.getElementById("root");
 if (!rootEl) throw new Error("Root element #root not found");
