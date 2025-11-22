@@ -1,1 +1,0 @@
-const reg={}; export const registerPage=(id,c)=>reg[id]=c; export const getPageController=(id)=>reg[id];

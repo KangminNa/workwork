@@ -1,1 +1,0 @@
-export class BasePageController{fetch(){return{}} render(){return null}}
