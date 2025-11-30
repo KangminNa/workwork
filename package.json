@@ -13,7 +13,7 @@
     "build:auth-server": "npm run build:server --workspace=@workwork/auth",
     "start:auth-server:dev": "npm run start:server:dev --workspace=@workwork/auth",
     "build:auth-browser": "npm run build:browser --workspace=@workwork/auth",
-    "start:auth-browser:dev": "npm run start:browser:dev --workspace=@workwork/auth",
+    "start:auth-browser:dev": "npm run dev --workspace=@workwork/auth",
     "build:base-server": "npm run build:server --workspace=@workwork/base",
     "start:base-server:dev": "npm run start:server:dev --workspace=@workwork/base",
     "build:base-browser": "npm run build:browser --workspace=@workwork/base",
