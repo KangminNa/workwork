@@ -1,13 +1,24 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
+import { BaseController } from '@workwork/base';
 import { UserService } from '../../application/services/user.service';
-import { UserGreetingDto } from '../../shared/dto/user-greeting.dto';
 
 @Controller('user')
-export class UserController {
-  constructor(private readonly userService: UserService) {}
+export class UserController extends BaseController {
+  constructor(private readonly userService: UserService) {
+    super();
+  }
 
   @Get('hello')
-  sayHello(): UserGreetingDto {
-    return this.userService.getGreeting();
+  sayHello() {
+    return this.success(this.userService.getGreeting());
+  }
+
+  @Get('find')
+  findByEmail(@Query('email') email: string) {
+    try {
+      return this.success(this.userService.findByEmail(email));
+    } catch (error) {
+      return this.failure((error as Error).message, 404);
+    }
   }
 }

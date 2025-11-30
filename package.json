@@ -4,6 +4,7 @@
   "private": true,
   "packageManager": "npm@10.5.2",
   "workspaces": [
+    "base",
     "auth",
     "user",
     "schedule",

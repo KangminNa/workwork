@@ -4,6 +4,7 @@ const path = require('path');
 
 const modules = ['auth', 'user', 'schedule', 'notification', 'label', 'admin'];
 const gateway = 'gateway';
+const base = 'base';
 
 const layerFolders = ['app', 'interface', 'application', 'domain', 'infrastructure', 'shared'];
 const nestedFolders = {
@@ -30,10 +31,8 @@ function scaffoldModule(basePath) {
   });
 }
 
-modules.forEach((moduleName) => {
+[...modules, gateway, base].forEach((moduleName) => {
   scaffoldModule(path.resolve(moduleName));
 });
 
-scaffoldModule(path.resolve(gateway));
-
-console.log('Scaffold complete for modules: ', [...modules, gateway].join(', '));
+console.log('Scaffold complete for modules: ', [...modules, gateway, base].join(', '));

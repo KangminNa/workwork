@@ -1,13 +1,15 @@
 import { Controller, Get } from '@nestjs/common';
+import { BaseController } from '@workwork/base';
 import { NotificationService } from '../../application/services/notification.service';
-import { NotificationGreetingDto } from '../../shared/dto/notification-greeting.dto';
 
 @Controller('notification')
-export class NotificationController {
-  constructor(private readonly notificationService: NotificationService) {}
+export class NotificationController extends BaseController {
+  constructor(private readonly notificationService: NotificationService) {
+    super();
+  }
 
   @Get('hello')
-  greet(): NotificationGreetingDto {
-    return this.notificationService.getGreeting();
+  greet() {
+    return this.success(this.notificationService.getGreeting());
   }
 }

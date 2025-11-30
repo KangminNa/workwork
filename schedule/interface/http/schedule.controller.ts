@@ -1,13 +1,15 @@
 import { Controller, Get } from '@nestjs/common';
+import { BaseController } from '@workwork/base';
 import { ScheduleService } from '../../application/services/schedule.service';
-import { ScheduleGreetingDto } from '../../shared/dto/schedule-greeting.dto';
 
 @Controller('schedule')
-export class ScheduleController {
-  constructor(private readonly scheduleService: ScheduleService) {}
+export class ScheduleController extends BaseController {
+  constructor(private readonly scheduleService: ScheduleService) {
+    super();
+  }
 
   @Get('hello')
-  greet(): ScheduleGreetingDto {
-    return this.scheduleService.getGreeting();
+  greet() {
+    return this.success(this.scheduleService.getGreeting());
   }
 }

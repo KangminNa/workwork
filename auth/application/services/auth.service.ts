@@ -1,14 +1,20 @@
 import { Injectable } from '@nestjs/common';
+import { BaseService } from '@workwork/base';
 import { AuthGreeting } from '../../domain/models/auth-greeting.entity';
 import { AuthGreetingDto } from '../../shared/dto/auth-greeting.dto';
+import { AuthRepository } from '../../infrastructure/auth.repository';
 
 @Injectable()
-export class AuthService {
-  getGreeting(): AuthGreetingDto {
-    const greeting: AuthGreeting = {
-      message: 'Auth module says hello',
-    };
+export class AuthService extends BaseService<AuthGreeting> {
+  constructor(private readonly authRepository: AuthRepository) {
+    super(authRepository);
+  }
 
-    return greeting;
+  getGreeting(): AuthGreetingDto {
+    return this.save({
+      id: 'auth-default',
+      message: 'Auth module says hello',
+      updatedAt: new Date(),
+    });
   }
 }
