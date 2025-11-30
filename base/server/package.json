@@ -1,0 +1,14 @@
+{
+  "name": "base-server",
+  "private": true,
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "dependencies": {
+    "base-browser": "file:../browser",
+    "auth-browser": "file:../../auth/browser"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "dev": "tsc --watch --project tsconfig.json"
+  }
+}

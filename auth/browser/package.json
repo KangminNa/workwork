@@ -1,0 +1,13 @@
+{
+  "name": "auth-browser",
+  "private": true,
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "dependencies": {
+    "base-browser": "file:../../base/browser"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "dev": "tsc --watch --project tsconfig.json"
+  }
+}

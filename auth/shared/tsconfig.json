@@ -2,12 +2,11 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "rootDir": ".",
-    "outDir": "../../dist/base/server",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "outDir": "../../dist/auth/shared"
   },
   "include": [
-    "**/*.ts"
+    "**/*.ts",
+    "**/*.tsx"
   ],
   "exclude": [
     "dist",

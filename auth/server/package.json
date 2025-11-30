@@ -1,0 +1,13 @@
+{
+  "name": "auth-server",
+  "private": true,
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "dependencies": {
+    "base-server": "file:../../base/server"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "dev": "tsc --watch --project tsconfig.json"
+  }
+}
