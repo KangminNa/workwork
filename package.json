@@ -10,17 +10,14 @@
     "schedule",
     "notification",
     "label",
-    "admin",
-    "gateway"
+    "admin"
   ],
   "scripts": {
-    "setup": "node setup.js",
     "dev:auth": "npm run start:dev --workspace @workwork/auth",
     "dev:user": "npm run start:dev --workspace @workwork/user",
     "dev:schedule": "npm run start:dev --workspace @workwork/schedule",
     "dev:notification": "npm run start:dev --workspace @workwork/notification",
     "dev:label": "npm run start:dev --workspace @workwork/label",
-    "dev:admin": "npm run start:dev --workspace @workwork/admin",
-    "dev:gateway": "npm run start:dev --workspace @workwork/gateway"
+    "dev:admin": "npm run start:dev --workspace @workwork/admin"
   }
 }
