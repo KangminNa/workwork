@@ -1,16 +1,14 @@
-export type TableName = 'users' | 'labels' | 'time_blocks' | 'notifications';
+// Re-export types
+export * from './types';
 
-export type QueryInput = {
-  table: TableName;
-  where?: Record<string, unknown>;
-  data?: Record<string, unknown>;
-};
+// Re-export connection management
+export * from './connection';
 
-export function buildQuery({ table, where, data }: QueryInput) {
-  return { table, where, data };
-}
+// Re-export repositories
+export * from './repositories';
 
-export function runQuery(query: ReturnType<typeof buildQuery>) {
-  // placeholder for ORM adapter
-  return query;
-}
+// Re-export query builders
+export * from './query-builders';
+
+// Re-export utilities
+export * from './utils';

@@ -1,18 +1,12 @@
-import type { ComponentType, PropsWithChildren } from 'react';
+// Re-export types
+export * from './types';
 
-export type CalendarCellProps = {
-  date: string;
-  active?: boolean;
-};
+// Re-export components
+export { CalendarCell } from './components/CalendarCell';
+export { TimeBlock } from './components/TimeBlock';
+export { LabelSelector } from './components/LabelSelector';
+export { MonthlyCalendar } from './components/MonthlyCalendar';
+export { DailyTimeBlocks } from './components/DailyTimeBlocks';
 
-export const CalendarCell: ComponentType<PropsWithChildren<CalendarCellProps>> = ({
-  date,
-  active,
-  children,
-}) => {
-  return (
-    <div data-date={date} className={active ? 'cell cell--active' : 'cell'}>
-      {children}
-    </div>
-  );
-};
+// Re-export utilities
+export * from './utils';
