@@ -9,7 +9,10 @@
     "rootDir": "./",
     "baseUrl": ".",
     "paths": {
-      "@workwork/base": ["base/index.ts"]
+      "@workwork/base": ["base"],
+      "@workwork/base/*": ["base/*"],
+      "@workwork/auth": ["auth"],
+      "@workwork/auth/*": ["auth/*"]
     },
     "moduleResolution": "node",
     "resolveJsonModule": true,

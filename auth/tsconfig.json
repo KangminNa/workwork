@@ -1,8 +1,12 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "dist",
-    "baseUrl": "./"
+    "outDir": "dist/server",
+    "baseUrl": "./server",
+    "paths": {
+      "@workwork/auth/*": ["./*"]
+    }
   },
-  "include": ["**/*.ts"]
+  "include": ["server/**/*.ts", "shared/**/*.ts"],
+  "exclude": ["node_modules", "dist", "browser"]
 }

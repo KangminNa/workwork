@@ -1,9 +1,12 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": "."
+    "outDir": "dist/server",
+    "baseUrl": "./server",
+    "paths": {
+      "@workwork/base/*": ["./*"]
+    }
   },
-  "include": ["**/*.ts"],
-  "exclude": ["dist", "node_modules"]
+  "include": ["server/**/*.ts"],
+  "exclude": ["node_modules", "dist", "browser"]
 }
