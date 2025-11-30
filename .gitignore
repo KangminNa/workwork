@@ -1,27 +1,43 @@
-# Dependencies (root + any workspace)
-/node_modules/
+# Dependencies (root + workspaces)
+node_modules/
 **/node_modules/
 
-# Build outputs
-/dist/
-/apps/*/dist/
-/apps/*/build/
+# Build outputs / coverage
+dist/
+build/
+coverage/
 **/dist/
 **/build/
+**/coverage/
+.next/
+out/
 
 # Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.log
 
-# Env files
+# Runtime caches
+.cache/
+.turbo/
+.parcel-cache/
+*.tsbuildinfo
+.eslintcache
+.tsbuildinfo
+
+# Env & secrets
 .env
 .env.*
+config/*.local.*
+config/*.secrets.*
 
-# Lock files (optional – ignore if installing locally only)
+# Lock files (optional – keep if you rely on them)
 package-lock.json
-**/package-lock.json
+pnpm-lock.yaml
+yarn.lock
 
 # Editor/OS artifacts
 .DS_Store
@@ -29,6 +45,4 @@ package-lock.json
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
-
-# Misc caches
-*.tsbuildinfo
+*.swp
