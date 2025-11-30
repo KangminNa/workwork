@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@core/runtime/*": ["core/runtime/src/*"],
+      "@core/db/*": ["core/db/src/*"],
+      "@core/queue/*": ["core/queue/src/*"],
+      "@core/ui/*": ["core/ui/src/*"],
+      "@modules/*": ["modules/*/src"],
+      "@shared/*": ["shared/src/*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "dist", "build"]
+}

@@ -1,0 +1,13 @@
+node_modules
+.pnpm-store
+.turbo
+.env
+.env.local
+.env.*.local
+dist/
+apps/**/dist
+apps/**/.next
+apps/**/build
+coverage
+.DS_Store
+.idea

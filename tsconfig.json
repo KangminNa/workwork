@@ -1,0 +1,22 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true
+  },
+  "references": [
+    { "path": "core/runtime" },
+    { "path": "core/db" },
+    { "path": "core/queue" },
+    { "path": "core/ui" },
+    { "path": "modules/auth" },
+    { "path": "modules/profile" },
+    { "path": "modules/label" },
+    { "path": "modules/schedule" },
+    { "path": "modules/notification" },
+    { "path": "modules/calendar" },
+    { "path": "modules/telemetry" },
+    { "path": "shared" },
+    { "path": "apps/server" },
+    { "path": "apps/web" }
+  ]
+}

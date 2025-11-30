@@ -1,0 +1,6 @@
+# Global environment variables
+database_url=postgres://workwork:workwork@localhost:5432/workwork
+redis_url=redis://localhost:6379
+node_env=development
+port=4000
+web_url=http://localhost:5173
