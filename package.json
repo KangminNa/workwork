@@ -1,0 +1,16 @@
+{
+  "name": "workwork-monorepo",
+  "private": true,
+  "packageManager": "npm@10.5.2",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run start:dev --workspace @workwork/server\" \"npm run dev --workspace @workwork/client\"",
+    "dev:server": "npm run start:dev --workspace @workwork/server",
+    "dev:client": "npm run dev --workspace @workwork/client"
+  },
+  "devDependencies": {
+    "concurrently": "8.2.2"
+  }
+}

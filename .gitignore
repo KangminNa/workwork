@@ -1,0 +1,34 @@
+# Dependencies (root + any workspace)
+/node_modules/
+**/node_modules/
+
+# Build outputs
+/dist/
+/apps/*/dist/
+/apps/*/build/
+**/dist/
+**/build/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Env files
+.env
+.env.*
+
+# Lock files (optional – ignore if installing locally only)
+package-lock.json
+**/package-lock.json
+
+# Editor/OS artifacts
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Misc caches
+*.tsbuildinfo
