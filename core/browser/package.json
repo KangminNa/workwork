@@ -1,0 +1,8 @@
+{
+  "name": "@workwork/web",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "name": "browser"
+  }
+}

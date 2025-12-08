@@ -1,0 +1,11 @@
+{
+  "name": "@workwork/web-e2e",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "implicitDependencies": [
+      "browser"
+    ],
+    "name": "browser-e2e"
+  }
+}
