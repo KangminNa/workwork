@@ -1,0 +1,26 @@
+{
+  "name": "workwork",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Monorepo project with React frontend and NestJS backend",
+  "workspaces": [
+    "browser",
+    "server"
+  ],
+  "scripts": {
+    "dev:browser": "npm run dev --workspace=browser",
+    "dev:server": "npm run start:dev --workspace=server",
+    "dev": "concurrently \"npm run dev:browser\" \"npm run dev:server\"",
+    "build:browser": "npm run build --workspace=browser",
+    "build:server": "npm run build --workspace=server",
+    "build": "npm run build:browser && npm run build:server"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
+
