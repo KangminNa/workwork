@@ -1,17 +1,19 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { ConfigService } from '@nestjs/config';
+import { ConfigLoader } from './config.loader';
 
-export const getDatabaseConfig = (
-  configService: ConfigService,
-): TypeOrmModuleOptions => ({
-  type: 'postgres',
-  host: configService.get('DB_HOST', 'localhost'),
-  port: configService.get('DB_PORT', 5432),
-  username: configService.get('DB_USERNAME', 'postgres'),
-  password: configService.get('DB_PASSWORD', 'postgres'),
-  database: configService.get('DB_DATABASE', 'workwork'),
-  entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-  synchronize: configService.get('NODE_ENV') !== 'production', // 개발 환경에서만 자동 동기화
-  logging: configService.get('NODE_ENV') === 'development',
-});
+export const getDatabaseConfig = (): TypeOrmModuleOptions => {
+  const config = ConfigLoader.get();
+
+  return {
+    type: config.database.type as 'postgres',
+    host: config.database.host,
+    port: config.database.port,
+    username: config.database.username,
+    password: config.database.password,
+    database: config.database.database,
+    entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+    synchronize: config.database.synchronize,
+    logging: config.database.logging,
+  };
+};
 

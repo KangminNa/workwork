@@ -1,0 +1,34 @@
+{
+  "server": {
+    "host": "localhost",
+    "port": 4000,
+    "apiPrefix": "api",
+    "cors": {
+      "origin": "http://localhost:3000",
+      "credentials": true
+    }
+  },
+  "database": {
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "postgres",
+    "password": "postgres",
+    "database": "workwork",
+    "synchronize": true,
+    "logging": false
+  },
+  "redis": {
+    "host": "localhost",
+    "port": 6379
+  },
+  "jwt": {
+    "secret": "your-secret-key-change-in-production",
+    "expirationTime": "3600s"
+  },
+  "invite": {
+    "codePrefix": "WORK",
+    "codeLength": 6
+  }
+}
+

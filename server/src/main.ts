@@ -1,18 +1,20 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
+import { ConfigLoader } from './config/config.loader';
 
 async function bootstrap() {
+  const config = ConfigLoader.get();
   const app = await NestFactory.create(AppModule);
-  
+
   // CORS 설정
   app.enableCors({
-    origin: 'http://localhost:3000',
-    credentials: true,
+    origin: config.server.cors.origin,
+    credentials: config.server.cors.credentials,
   });
 
   // Global prefix
-  app.setGlobalPrefix('api');
+  app.setGlobalPrefix(config.server.apiPrefix);
 
   // Validation Pipe 전역 설정
   app.useGlobalPipes(
@@ -23,11 +25,15 @@ async function bootstrap() {
     }),
   );
 
-  const port = process.env.PORT || 4000;
-  await app.listen(port);
-  
-  console.log(`🚀 Server is running on: http://localhost:${port}/api`);
-  console.log(`📖 API Docs: http://localhost:${port}/api`);
+  await app.listen(config.server.port);
+
+  console.log(
+    `🚀 Server is running on: http://${config.server.host}:${config.server.port}/${config.server.apiPrefix}`,
+  );
+  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(
+    `📊 Database: ${config.database.database}@${config.database.host}:${config.database.port}`,
+  );
 }
 
 bootstrap();

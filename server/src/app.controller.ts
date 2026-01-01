@@ -6,8 +6,8 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  getInfo() {
+    return this.appService.getServerInfo();
   }
 
   @Get('health')
@@ -15,7 +15,8 @@ export class AppController {
     return {
       status: 'ok',
       timestamp: new Date().toISOString(),
-      message: 'Server is running successfully',
+      uptime: process.uptime(),
+      environment: process.env.NODE_ENV || 'development',
     };
   }
 }

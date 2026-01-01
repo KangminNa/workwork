@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import { ConfigService } from '@nestjs/config';
+import { ConfigLoader } from '../../src/config/config.loader';
 
 /**
  * 테스트 데이터베이스 헬퍼
@@ -10,18 +10,20 @@ export class TestDatabaseHelper {
   /**
    * 테스트 데이터베이스 연결
    */
-  static async connect(configService: ConfigService): Promise<DataSource> {
+  static async connect(): Promise<DataSource> {
     if (this.dataSource?.isInitialized) {
       return this.dataSource;
     }
 
+    const config = ConfigLoader.get();
+
     this.dataSource = new DataSource({
       type: 'postgres',
-      host: configService.get('DB_HOST', 'localhost'),
-      port: configService.get('DB_PORT', 5433),
-      username: configService.get('DB_USERNAME', 'postgres'),
-      password: configService.get('DB_PASSWORD', 'postgres'),
-      database: configService.get('DB_DATABASE', 'workwork_test'),
+      host: config.database.host,
+      port: config.database.port,
+      username: config.database.username,
+      password: config.database.password,
+      database: config.database.database,
       entities: [__dirname + '/../../src/**/*.entity{.ts,.js}'],
       synchronize: true, // 테스트에서는 자동 동기화
       dropSchema: false, // 매 테스트마다 스키마 초기화는 cleanDatabase()로

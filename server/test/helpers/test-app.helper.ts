@@ -63,7 +63,7 @@ export class TestAppHelper {
     this.configService = this.app.get(ConfigService);
 
     // 테스트 데이터베이스 연결
-    await TestDatabaseHelper.connect(this.configService);
+    await TestDatabaseHelper.connect();
     await TestDatabaseHelper.cleanDatabase();
 
     await this.app.init();

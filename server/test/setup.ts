@@ -1,15 +1,9 @@
 /**
  * 테스트 환경 초기 설정
+ * test.json 설정 파일을 사용하며, 필요시 환경 변수로 오버라이드 가능
  */
-// 테스트 환경 변수 설정
+// 테스트 환경 설정
 process.env.NODE_ENV = 'test';
-process.env.DB_HOST = 'localhost';
-process.env.DB_PORT = '5433';
-process.env.DB_USERNAME = 'postgres';
-process.env.DB_PASSWORD = 'postgres';
-process.env.DB_DATABASE = 'workwork_test';
-process.env.JWT_SECRET = 'test-secret-key-for-jwt-tokens';
-process.env.JWT_EXPIRES_IN = '7d';
 
 // 타임존 설정
 process.env.TZ = 'Asia/Seoul';

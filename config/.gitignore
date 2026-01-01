@@ -1,0 +1,8 @@
+# 환경별 오버라이드 파일은 git에 포함하지 않음
+local.json
+local-*.json
+*.local.json
+
+# 민감한 정보가 포함된 파일
+secrets.json
+

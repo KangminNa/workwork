@@ -7,6 +7,22 @@ help: ## 사용 가능한 명령어 보기
 	@echo "========================"
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
+# 환경 설정
+setup: docker-up install setup-env ## 프로젝트 초기 설정
+	@echo "✅ 설정 완료! 'make dev' 명령으로 서버를 시작하세요."
+
+setup-env: ## 환경 변수 파일 생성
+	@if [ ! -f .env ]; then cp .env.example .env; echo "✅ .env 파일이 생성되었습니다."; fi
+	@if [ ! -f server/.env ]; then cp server/.env.example server/.env; echo "✅ server/.env 파일이 생성되었습니다."; fi
+
+# 정리 명령어
+clean: ## 빌드 파일 정리
+	npm run clean:dist
+
+clean-all: ## 모든 임시 파일 정리 (node_modules 포함)
+	npm run clean:modules
+	npm run clean:dist
+
 # Docker 명령어
 docker-up: ## Docker 컨테이너 시작
 	docker-compose up -d
@@ -69,8 +85,4 @@ build-server: ## 서버 빌드
 
 build-browser: ## 브라우저 빌드
 	npm run build:browser
-
-# 초기 설정
-setup: docker-up install ## 프로젝트 초기 설정
-	@echo "✅ 설정 완료! 'make dev' 명령으로 서버를 시작하세요."
 
