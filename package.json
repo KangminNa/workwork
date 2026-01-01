@@ -8,13 +8,13 @@
     "server"
   ],
   "scripts": {
-    "dev:browser": "npm run dev --workspace=browser",
-    "dev:server": "NODE_ENV=development npm run start:dev --workspace=server",
-    "dev": "concurrently \"npm run dev:browser\" \"npm run dev:server\"",
-    "build:browser": "npm run build --workspace=browser",
-    "build:server": "npm run build --workspace=server",
-    "build": "npm run build:browser && npm run build:server",
-    "clean": "npm run clean --workspaces",
+    "dev:browser": "pnpm --filter browser dev",
+    "dev:server": "NODE_ENV=development pnpm --filter server start:dev",
+    "dev": "concurrently \"pnpm run dev:browser\" \"pnpm run dev:server\"",
+    "build:browser": "pnpm --filter browser build",
+    "build:server": "pnpm --filter server build",
+    "build": "pnpm run build:browser && pnpm run build:server",
+    "clean": "pnpm -r --if-present clean",
     "clean:dist": "rm -rf server/dist browser/dist server/*.tsbuildinfo",
     "clean:modules": "rm -rf node_modules server/node_modules browser/node_modules"
   },
@@ -24,6 +24,12 @@
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=9.0.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "bcrypt",
+      "esbuild",
+      "@nestjs/core"
+    ]
   }
 }
-

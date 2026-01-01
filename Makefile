@@ -17,11 +17,11 @@ setup-env: ## 환경 변수 파일 생성
 
 # 정리 명령어
 clean: ## 빌드 파일 정리
-	npm run clean:dist
+	pnpm run clean:dist
 
 clean-all: ## 모든 임시 파일 정리 (node_modules 포함)
-	npm run clean:modules
-	npm run clean:dist
+	pnpm run clean:modules
+	pnpm run clean:dist
 
 # Docker 명령어
 docker-up: ## Docker 컨테이너 시작
@@ -52,37 +52,36 @@ db-reset: ## 데이터베이스 초기화 (개발용)
 
 # 서버 명령어
 install: ## 의존성 설치
-	npm install
+	pnpm install
 
 dev: ## 개발 서버 시작 (전체)
-	npm run dev
+	pnpm run dev
 
 dev-server: ## 서버만 개발 모드 실행
-	npm run dev:server
+	pnpm run dev:server
 
 dev-browser: ## 브라우저만 개발 모드 실행
-	npm run dev:browser
+	pnpm run dev:browser
 
 # 테스트 명령어
 test: ## 전체 테스트 실행
-	cd server && npm run test
+	cd server && pnpm run test
 
 test-watch: ## 테스트 Watch 모드
-	cd server && npm run test:watch
+	cd server && pnpm run test:watch
 
 test-cov: ## 테스트 커버리지
-	cd server && npm run test:cov
+	cd server && pnpm run test:cov
 
 test-e2e: ## E2E 테스트
-	cd server && npm run test:e2e
+	cd server && pnpm run test
 
 # 빌드 명령어
 build: ## 전체 빌드
-	npm run build
+	pnpm run build
 
 build-server: ## 서버 빌드
-	npm run build:server
+	pnpm run build:server
 
 build-browser: ## 브라우저 빌드
-	npm run build:browser
-
+	pnpm run build:browser
