@@ -1,5 +1,0 @@
-packages:
-  - browser
-  - server
-
-ignoredBuiltDependencies: []
