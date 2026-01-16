@@ -1,0 +1,21 @@
+{
+  "name": "workwork-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "server:dev": "npm -w @workwork/server run dev",
+    "server:build": "npm -w @workwork/server run build",
+    "server:start": "npm -w @workwork/server run start",
+    "prisma:generate": "npm -w @workwork/server run prisma:generate",
+    "prisma:migrate": "npm -w @workwork/server run prisma:migrate",
+    "prisma:studio": "npm -w @workwork/server run prisma:studio"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
+
