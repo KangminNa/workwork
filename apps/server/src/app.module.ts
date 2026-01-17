@@ -1,11 +1,14 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
-import { GroupModule } from './group/group.module';
+import { LoginModule } from './modules/login/login.module';
 
+/**
+ * App Module
+ * - LoginModule로 User + Group 통합
+ */
 @Module({
-  imports: [AuthModule, GroupModule],
+  imports: [LoginModule],
   controllers: [AppController],
   providers: [AppService],
 })

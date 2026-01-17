@@ -146,13 +146,18 @@ function App() {
     }
   };
 
-  const loadPendingRoots = async (adminUserId: string, accessToken: string) => {
+  const loadPendingRoots = async (_adminUserId: string, accessToken: string) => {
     try {
-      const res = await fetch(`http://localhost:3000/api/auth/pending-roots/${adminUserId}`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
+      const res = await fetch('http://localhost:3000/api/auth/pending', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({}),
       });
       const data = await res.json();
-      setPendingRoots(data);
+      setPendingRoots(data.roots ?? data);
     } catch (err) {
       console.error('Failed to load pending roots:', err);
     }
@@ -160,15 +165,15 @@ function App() {
 
   const approveRoot = async (rootUserId: string, approved: boolean) => {
     try {
-      const res = await fetch(`http://localhost:3000/api/auth/approve-root/${rootUserId}`, {
-        method: 'PATCH',
+      const res = await fetch('http://localhost:3000/api/auth/approve', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           approved,
-          adminUserId: user!.id,
+          userId: rootUserId,
         }),
       });
       const data = await res.json();
@@ -188,11 +193,11 @@ function App() {
 
   const loadUsers = async (rootUserId: string, accessToken: string) => {
     try {
-      const res = await fetch(`http://localhost:3000/api/auth/users/${rootUserId}`, {
+      const res = await fetch('http://localhost:3000/api/auth/users', {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
       const data = await res.json();
-      setUsers(data);
+      setUsers(data.users ?? data);
     } catch (err) {
       console.error('Failed to load users:', err);
     }
@@ -201,7 +206,7 @@ function App() {
   const createUser = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:3000/api/auth/users', {
+      const res = await fetch('http://localhost:3000/api/auth/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -241,7 +246,7 @@ function App() {
     if (!editingUser) return;
 
     try {
-      const updateData: any = { rootUserId: user!.id };
+      const updateData: any = { rootUserId: user!.id, userId: editingUser.id };
       if (editUserData.username !== editingUser.username) {
         updateData.username = editUserData.username;
       }
@@ -249,8 +254,8 @@ function App() {
         updateData.password = editUserData.password;
       }
 
-      const res = await fetch(`http://localhost:3000/api/auth/users/${editingUser.id}`, {
-        method: 'PATCH',
+      const res = await fetch('http://localhost:3000/api/auth/update', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
@@ -272,13 +277,13 @@ function App() {
     if (!confirm('정말 삭제하시겠습니까?')) return;
     
     try {
-      const res = await fetch(`http://localhost:3000/api/auth/users/${userId}`, {
-        method: 'DELETE',
+      const res = await fetch('http://localhost:3000/api/auth/delete', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ rootUserId: user!.id }),
+        body: JSON.stringify({ rootUserId: user!.id, userId }),
       });
       
       if (!res.ok) throw new Error('사용자 삭제 실패');
