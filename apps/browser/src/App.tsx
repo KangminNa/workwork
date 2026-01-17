@@ -35,7 +35,7 @@ function App() {
       if (parsedUser.role === 'ADMIN') {
         loadPendingRoots(parsedUser.id, savedToken);
       } else if (parsedUser.role === 'ROOT' && parsedUser.status === 'APPROVED') {
-        loadUsers(parsedUser.id, savedToken);
+        loadUsers(savedToken);
       }
     }
   }, []);
@@ -139,7 +139,7 @@ function App() {
       if (data.user.role === 'ADMIN') {
         loadPendingRoots(data.user.id, data.accessToken);
       } else if (data.user.role === 'ROOT' && data.user.status === 'APPROVED') {
-        loadUsers(data.user.id, data.accessToken);
+        loadUsers(data.accessToken);
       }
     } catch (err: any) {
       showMessage(err.message, true);
@@ -191,7 +191,7 @@ function App() {
     }
   };
 
-  const loadUsers = async (rootUserId: string, accessToken: string) => {
+  const loadUsers = async (accessToken: string) => {
     try {
       const res = await fetch('http://localhost:3000/api/auth/users', {
         headers: { Authorization: `Bearer ${accessToken}` },
@@ -214,7 +214,6 @@ function App() {
         },
         body: JSON.stringify({
           ...newUserData,
-          rootUserId: user!.id,
         }),
       });
       
@@ -222,7 +221,7 @@ function App() {
       
       showMessage('사용자가 생성되었습니다.');
       setNewUserData({ username: '', password: '' });
-      loadUsers(user!.id, token!);
+      loadUsers(token!);
     } catch (err: any) {
       showMessage(err.message, true);
     }
@@ -246,7 +245,7 @@ function App() {
     if (!editingUser) return;
 
     try {
-      const updateData: any = { rootUserId: user!.id, userId: editingUser.id };
+      const updateData: any = { userId: editingUser.id };
       if (editUserData.username !== editingUser.username) {
         updateData.username = editUserData.username;
       }
@@ -267,7 +266,7 @@ function App() {
       
       showMessage('사용자가 수정되었습니다.');
       cancelEditUser();
-      loadUsers(user!.id, token!);
+      loadUsers(token!);
     } catch (err: any) {
       showMessage(err.message, true);
     }
@@ -283,13 +282,13 @@ function App() {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ rootUserId: user!.id, userId }),
+        body: JSON.stringify({ userId }),
       });
       
       if (!res.ok) throw new Error('사용자 삭제 실패');
       
       showMessage('사용자가 삭제되었습니다.');
-      loadUsers(user!.id, token!);
+      loadUsers(token!);
     } catch (err: any) {
       showMessage(err.message, true);
     }

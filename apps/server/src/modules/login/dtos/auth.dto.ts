@@ -48,40 +48,7 @@ export class ApproveRootDto {
 
   @IsString()
   @IsNotEmpty()
-  adminUserId: string;
+  userId: string;
 }
 
-/**
- * 로그인 응답 DTO
- */
-export interface LoginResponseDto {
-  accessToken: string;
-  user: {
-    id: string;
-    email: string | null;
-    username: string;
-    role: string;
-    status: string;
-    groupId: string | null;
-    createdAt: Date;
-    updatedAt: Date;
-  };
-  groupCode?: string;
-}
-
-/**
- * ROOT 승인 응답 DTO
- */
-export interface ApproveRootResponseDto {
-  user: {
-    id: string;
-    email: string | null;
-    username: string;
-    role: string;
-    status: string;
-    groupId: string | null;
-  };
-  groupCode?: string;
-  groupName?: string;
-}
-
+// Response DTOs are defined by entity response mapping (User.toResponse()).

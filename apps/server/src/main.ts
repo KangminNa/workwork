@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { config } from '../config';
+import { DomainExceptionFilter } from './common/filters/domain-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -23,6 +24,9 @@ async function bootstrap() {
     }),
   );
 
+  // Domain Exception Filter
+  app.useGlobalFilters(new DomainExceptionFilter());
+
   // API prefix
   app.setGlobalPrefix(config.app.apiPrefix);
 
@@ -40,4 +44,3 @@ bootstrap().catch((error) => {
   console.error('Failed to start server:', error);
   process.exit(1);
 });
-

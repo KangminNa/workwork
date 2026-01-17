@@ -3,14 +3,12 @@ import { Email } from '../values/email.vo';
 import { Password } from '../values/password.vo';
 import { UserRole } from '../user-role.enum';
 import { UserStatus } from '../user-status.enum';
-import { DomainException } from '../../../../common/exceptions/domain.exception';
-import { CryptoUtil } from '../../../../common/utils/crypto.util';
 import { randomUUID } from 'crypto';
 
 /**
  * User Entity (Aggregate Root)
- * - 사용자의 비즈니스 로직을 포함
- * - 자신의 규칙을 스스로 검증
+ * - 사용자 상태 중심 모델
+ * - 규칙/검증은 Service/Policy에서 처리
  */
 export class User extends BaseEntity {
   private _email?: Email;
@@ -57,68 +55,24 @@ export class User extends BaseEntity {
   // ============================================
 
   /**
-   * ROOT 사용자 생성
+   * 새 사용자 생성 (비즈니스 규칙은 Service에서 처리)
    */
-  static createRoot(
-    email: string,
-    username: string,
-    password: string,
-    cryptoUtil: CryptoUtil,
-  ): User {
+  static create(props: {
+    email?: Email;
+    username: string;
+    password: Password;
+    role: UserRole;
+    status: UserStatus;
+    groupId?: string;
+  }): User {
     const user = new User();
     user._id = randomUUID();
-    user._email = Email.create(email);
-    user._username = username;
-    user._password = Password.create(password, cryptoUtil);
-    user._role = UserRole.ROOT;
-    user._status = UserStatus.PENDING;
-
-    // Domain Event 발행 (추후 구현)
-    // user.addDomainEvent(new UserCreatedEvent(user._id));
-
-    return user;
-  }
-
-  /**
-   * ADMIN 사용자 생성
-   */
-  static createAdmin(
-    email: string,
-    username: string,
-    password: string,
-    cryptoUtil: CryptoUtil,
-  ): User {
-    const user = new User();
-    user._id = randomUUID();
-    user._email = Email.create(email);
-    user._username = username;
-    user._password = Password.create(password, cryptoUtil);
-    user._role = UserRole.ADMIN;
-    user._status = UserStatus.APPROVED; // ADMIN은 항상 승인됨
-
-    return user;
-  }
-
-  /**
-   * 그룹 멤버 생성 (USER)
-   */
-  static createGroupMember(
-    username: string,
-    password: string,
-    groupId: string,
-    cryptoUtil: CryptoUtil,
-  ): User {
-    const user = new User();
-    user._id = randomUUID();
-    // USER는 email 없음
-    user._username = username;
-    user._password = Password.create(password, cryptoUtil);
-    user._role = UserRole.USER;
-    user._status = UserStatus.APPROVED; // USER는 즉시 승인
-    user._groupId = groupId;
-
-    // Domain Event 발행
-    // user.addDomainEvent(new UserCreatedEvent(user._id));
+    user._email = props.email;
+    user._username = props.username;
+    user._password = props.password;
+    user._role = props.role;
+    user._status = props.status;
+    user._groupId = props.groupId;
 
     return user;
   }
@@ -152,158 +106,37 @@ export class User extends BaseEntity {
   }
 
   // ============================================
-  // Business Logic Methods
+  // Mutation Methods (상태 변경은 Service에서 검증)
   // ============================================
 
-  /**
-   * ROOT 사용자 승인
-   */
-  approve(groupId: string): void {
-    this.validateCanBeApproved();
+  setEmail(email?: Email): void {
+    this._email = email;
+    this.touch();
+  }
 
-    this._status = UserStatus.APPROVED;
+  setUsername(username: string): void {
+    this._username = username;
+    this.touch();
+  }
+
+  setPassword(password: Password): void {
+    this._password = password;
+    this.touch();
+  }
+
+  setRole(role: UserRole): void {
+    this._role = role;
+    this.touch();
+  }
+
+  setStatus(status: UserStatus): void {
+    this._status = status;
+    this.touch();
+  }
+
+  setGroupId(groupId?: string): void {
     this._groupId = groupId;
     this.touch();
-
-    // Domain Event 발행
-    // this.addDomainEvent(new UserApprovedEvent(this._id, groupId));
-  }
-
-  /**
-   * ROOT 사용자 거절
-   */
-  reject(): void {
-    if (this._role !== UserRole.ROOT) {
-      throw new DomainException('Only ROOT users can be rejected');
-    }
-
-    if (this._status !== UserStatus.PENDING) {
-      throw new DomainException('User is not pending approval');
-    }
-
-    this._status = UserStatus.REJECTED;
-    this.touch();
-
-    // Domain Event 발행
-    // this.addDomainEvent(new UserRejectedEvent(this._id));
-  }
-
-  /**
-   * 비밀번호 변경
-   */
-  changePassword(newPassword: string, cryptoUtil: CryptoUtil): void {
-    this._password = Password.create(newPassword, cryptoUtil);
-    this.touch();
-
-    // Domain Event 발행
-    // this.addDomainEvent(new PasswordChangedEvent(this._id));
-  }
-
-  /**
-   * 사용자명 변경
-   */
-  changeUsername(newUsername: string): void {
-    if (!newUsername || newUsername.trim().length === 0) {
-      throw new DomainException('Username cannot be empty');
-    }
-
-    this._username = newUsername.trim();
-    this.touch();
-  }
-
-  /**
-   * 비밀번호 검증
-   */
-  async verifyPassword(plainPassword: string, cryptoUtil: CryptoUtil): Promise<boolean> {
-    return this._password.compare(plainPassword, cryptoUtil);
-  }
-
-  // ============================================
-  // Query Methods (상태 확인)
-  // ============================================
-
-  /**
-   * ADMIN 여부
-   */
-  isAdmin(): boolean {
-    return this._role === UserRole.ADMIN;
-  }
-
-  /**
-   * ROOT 여부
-   */
-  isRoot(): boolean {
-    return this._role === UserRole.ROOT;
-  }
-
-  /**
-   * USER 여부
-   */
-  isUser(): boolean {
-    return this._role === UserRole.USER;
-  }
-
-  /**
-   * 승인됨 여부
-   */
-  isApproved(): boolean {
-    return this._status === UserStatus.APPROVED;
-  }
-
-  /**
-   * 대기 중 여부
-   */
-  isPending(): boolean {
-    return this._status === UserStatus.PENDING;
-  }
-
-  /**
-   * 사용자 생성 가능 여부
-   */
-  canCreateUsers(): boolean {
-    return this.isRoot() && this.isApproved() && this._groupId !== undefined;
-  }
-
-  /**
-   * 그룹 생성 가능 여부
-   */
-  canCreateGroup(): boolean {
-    return this.isRoot() && this.isApproved();
-  }
-
-  /**
-   * 특정 그룹에 속해있는지 확인
-   */
-  isInGroup(groupId: string): boolean {
-    return this._groupId === groupId;
-  }
-
-  /**
-   * ROOT 승인 가능 여부
-   */
-  canApproveRoot(): boolean {
-    return this.isAdmin();
-  }
-
-  // ============================================
-  // Validation Methods (비즈니스 규칙 검증)
-  // ============================================
-
-  /**
-   * 승인 가능 여부 검증
-   */
-  private validateCanBeApproved(): void {
-    if (this._role !== UserRole.ROOT) {
-      throw new DomainException('Only ROOT users can be approved');
-    }
-
-    if (this._status !== UserStatus.PENDING) {
-      throw new DomainException('User is not pending approval');
-    }
-
-    if (this._groupId) {
-      throw new DomainException('User already has a group');
-    }
   }
 
   // ============================================
@@ -362,4 +195,3 @@ export class User extends BaseEntity {
     };
   }
 }
-

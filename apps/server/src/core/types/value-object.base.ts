@@ -75,38 +75,4 @@ export abstract class StringValueObject extends ValueObject<string> {
   }
 }
 
-/**
- * Value Object Transformer Helper
- * - Decorator에서 사용할 Transformer 생성 헬퍼
- */
-export class ValueObjectTransformer {
-  /**
-   * Value Object → Primitive 변환
-   */
-  static toPersistence<T>(valueObject: ValueObject<T> | null | undefined): T | null {
-    if (!valueObject) return null;
-    return valueObject.getValue();
-  }
-
-  /**
-   * Primitive → Value Object 변환
-   */
-  static toDomain<T, V extends ValueObject<T>>(
-    value: T | null | undefined,
-    factory: (value: T) => V,
-  ): V | null {
-    if (value === null || value === undefined) return null;
-    return factory(value);
-  }
-
-  /**
-   * Transformer 객체 생성 (Decorator용)
-   */
-  static createTransformer<T, V extends ValueObject<T>>(factory: (value: T) => V) {
-    return {
-      toPersistence: (vo: V | null) => this.toPersistence(vo),
-      toDomain: (value: T | null) => this.toDomain(value, factory),
-    };
-  }
-}
-
+// ValueObjectTransformer removed (unused).

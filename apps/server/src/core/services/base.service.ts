@@ -30,13 +30,4 @@ export abstract class BaseService {
   protected logDebug(message: string, data?: any) {
     this.logger.debug(message, data);
   }
-
-  /**
-   * 에러 래핑
-   */
-  protected wrapError(error: any, context: string): Error {
-    this.logError(`${context}: ${error.message}`, error.stack);
-    return error;
-  }
 }
-

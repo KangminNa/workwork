@@ -3,6 +3,11 @@ import { JwtService } from '@nestjs/jwt';
 import { User } from '../models/entities/user.entity';
 import { CryptoUtil } from '../../../common/utils/crypto.util';
 import { BaseService } from '../../../core/services/base.service';
+import { Email } from '../models/values/email.vo';
+import { Password } from '../models/values/password.vo';
+import { Username } from '../models/values/username.vo';
+import { UserRole } from '../models/user-role.enum';
+import { UserStatus } from '../models/user-status.enum';
 
 /**
  * Auth Service
@@ -40,26 +45,8 @@ export class AuthService extends BaseService {
   /**
    * JWT 토큰 검증
    */
-  verifyToken(token: string): any {
-    return this.jwt.verify(token);
-  }
-
-  // ============================================
-  // 비밀번호 검증
-  // ============================================
-
-  /**
-   * 비밀번호 검증
-   */
   async verifyPassword(user: User, plainPassword: string): Promise<boolean> {
     return user.password.compare(plainPassword, this.crypto);
-  }
-
-  /**
-   * 비밀번호 해싱
-   */
-  hashPassword(plainPassword: string): string {
-    return this.crypto.hashPasswordSync(plainPassword);
   }
 
   // ============================================
@@ -70,14 +57,32 @@ export class AuthService extends BaseService {
    * ROOT 사용자 생성
    */
   createRootUser(email: string, username: string, password: string): User {
-    return User.createRoot(email, username, password, this.crypto);
+    return User.create({
+      email: Email.create(email),
+      username: Username.create(username).getValue(),
+      password: Password.create(password, this.crypto),
+      role: UserRole.ROOT,
+      status: UserStatus.PENDING,
+    });
   }
 
   /**
    * 그룹 멤버 생성
    */
   createGroupMember(username: string, password: string, groupId: string): User {
-    return User.createGroupMember(username, password, groupId, this.crypto);
+    return User.create({
+      username: Username.create(username).getValue(),
+      password: Password.create(password, this.crypto),
+      role: UserRole.USER,
+      status: UserStatus.APPROVED,
+      groupId,
+    });
+  }
+
+  /**
+   * 사용자 비밀번호 변경
+   */
+  changeUserPassword(user: User, newPassword: string): void {
+    user.setPassword(Password.create(newPassword, this.crypto));
   }
 }
-

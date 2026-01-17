@@ -11,10 +11,6 @@ export class CreateUserDto {
   @IsString()
   @MinLength(6)
   password: string;
-
-  @IsString()
-  @IsNotEmpty()
-  rootUserId: string;
 }
 
 /**
@@ -29,32 +25,24 @@ export class UpdateUserDto {
   @MinLength(6)
   @IsOptional()
   password?: string;
-
-  @IsString()
-  @IsNotEmpty()
-  rootUserId: string;
 }
 
 /**
- * 사용자 삭제 DTO
+ * 사용자 수정 요청 DTO (액션용)
  */
-export class DeleteUserDto {
+export class UpdateUserRequestDto extends UpdateUserDto {
   @IsString()
   @IsNotEmpty()
-  rootUserId: string;
+  userId: string;
 }
 
 /**
- * 사용자 응답 DTO
+ * 사용자 삭제 요청 DTO (액션용)
  */
-export interface UserResponseDto {
-  id: string;
-  email: string | null;
-  username: string;
-  role: string;
-  status: string;
-  groupId: string | null;
-  createdAt: Date;
-  updatedAt: Date;
+export class DeleteUserRequestDto {
+  @IsString()
+  @IsNotEmpty()
+  userId: string;
 }
 
+// Response DTOs are defined by entity response mapping (User.toResponse()).

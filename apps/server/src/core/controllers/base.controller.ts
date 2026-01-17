@@ -1,7 +1,10 @@
 import { Post, Get, Param, Body, Query, BadRequestException, UseGuards } from '@nestjs/common';
+import { plainToInstance } from 'class-transformer';
+import { validateSync } from 'class-validator';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { CurrentUser } from '../decorators/current-user.decorator';
 import { User } from '../../modules/login/models/entities/user.entity';
+import { ACTION_DTO_KEY } from '../decorators/action-dto.decorator';
 
 /**
  * Base Controller
@@ -33,7 +36,8 @@ export abstract class BaseController {
       throw new BadRequestException(`Action not supported: ${action}`);
     }
 
-    return method.call(this, actor, params);
+    const validatedParams = this.validateParams(method, params);
+    return method.call(this, actor, validatedParams);
   }
 
   /**
@@ -57,7 +61,8 @@ export abstract class BaseController {
       throw new BadRequestException(`Query not supported: ${action}`);
     }
 
-    return method.call(this, actor, params);
+    const validatedParams = this.validateParams(method, params);
+    return method.call(this, actor, validatedParams);
   }
 
   /**
@@ -73,5 +78,26 @@ export abstract class BaseController {
       .filter(Boolean)
       .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
       .join('');
+  }
+
+  private validateParams(method: Function, params: any) {
+    const dtoClass = Reflect.getMetadata(ACTION_DTO_KEY, method);
+    if (!dtoClass) {
+      return params;
+    }
+
+    const instance = plainToInstance(dtoClass, params, {
+      enableImplicitConversion: true,
+    });
+    const errors = validateSync(instance, {
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    });
+
+    if (errors.length > 0) {
+      throw new BadRequestException(errors);
+    }
+
+    return instance;
   }
 }

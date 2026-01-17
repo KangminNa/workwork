@@ -96,24 +96,27 @@ curl -X POST http://localhost:3000/api/auth/login \
 ### 4. ADMIN이 Root 승인 대기 목록 조회
 
 ```bash
-# ADMIN_ID는 로그인 시 받은 user.id
-curl -X GET http://localhost:3000/api/auth/pending-roots/ADMIN_ID \
-  -H "Authorization: Bearer ADMIN_ACCESS_TOKEN"
+curl -X POST http://localhost:3000/api/auth/pending \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer ADMIN_ACCESS_TOKEN" \
+  -d '{}'
 ```
 
 **Response:**
 ```json
-[
-  {
-    "id": "...",
-    "email": "root@example.com",
-    "username": "root",
-    "role": "ROOT",
-    "status": "PENDING",
-    "createdAt": "...",
-    "updatedAt": "..."
-  }
-]
+{
+  "roots": [
+    {
+      "id": "...",
+      "email": "root@example.com",
+      "username": "root",
+      "role": "ROOT",
+      "status": "PENDING",
+      "createdAt": "...",
+      "updatedAt": "..."
+    }
+  ]
+}
 ```
 
 ---
@@ -121,18 +124,19 @@ curl -X GET http://localhost:3000/api/auth/pending-roots/ADMIN_ID \
 ### 5. ADMIN이 Root 승인
 
 ```bash
-curl -X PATCH http://localhost:3000/api/auth/approve-root/ROOT_USER_ID \
+curl -X POST http://localhost:3000/api/auth/approve \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer ADMIN_ACCESS_TOKEN" \
   -d '{
     "approved": true,
-    "adminUserId": "ADMIN_ID"
+    "userId": "ROOT_USER_ID"
   }'
 ```
 
 **Response:**
 ```json
 {
+  "message": "Root approved",
   "user": {
     "id": "...",
     "email": "root@example.com",
@@ -141,7 +145,8 @@ curl -X PATCH http://localhost:3000/api/auth/approve-root/ROOT_USER_ID \
     "status": "APPROVED",  // 승인됨!
     "groupId": "..."
   },
-  "groupCode": "A1B2C3"  // 자동 생성된 그룹 코드
+  "groupCode": "A1B2C3",
+  "groupName": "..."
 }
 ```
 
@@ -181,27 +186,29 @@ curl -X POST http://localhost:3000/api/auth/login \
 ### 7. Root가 사용자 생성
 
 ```bash
-curl -X POST http://localhost:3000/api/auth/users \
+curl -X POST http://localhost:3000/api/auth/create \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer ROOT_ACCESS_TOKEN" \
   -d '{
     "username": "user1",
-    "password": "password123",
-    "rootUserId": "ROOT_USER_ID"
+    "password": "password123"
   }'
 ```
 
 **Response:**
 ```json
 {
-  "id": "...",
-  "email": "user1@A1B2C3.local",  // 자동 생성된 이메일
-  "username": "user1",
-  "role": "USER",
-  "status": "APPROVED",
-  "groupId": "...",
-  "createdAt": "...",
-  "updatedAt": "..."
+  "message": "User created successfully",
+  "user": {
+    "id": "...",
+    "email": "user1@A1B2C3.local",
+    "username": "user1",
+    "role": "USER",
+    "status": "APPROVED",
+    "groupId": "...",
+    "createdAt": "...",
+    "updatedAt": "..."
+  }
 }
 ```
 
@@ -239,34 +246,36 @@ curl -X POST http://localhost:3000/api/auth/login \
 ### 9. Root의 그룹 사용자 목록 조회
 
 ```bash
-curl -X GET http://localhost:3000/api/auth/users/ROOT_USER_ID \
+curl -X GET http://localhost:3000/api/auth/users \
   -H "Authorization: Bearer ROOT_ACCESS_TOKEN"
 ```
 
 **Response:**
 ```json
-[
-  {
-    "id": "...",
-    "email": "root@example.com",
-    "username": "root",
-    "role": "ROOT",
-    "status": "APPROVED",
-    "groupId": "...",
-    "createdAt": "...",
-    "updatedAt": "..."
-  },
-  {
-    "id": "...",
-    "email": "user1@A1B2C3.local",
-    "username": "user1",
-    "role": "USER",
-    "status": "APPROVED",
-    "groupId": "...",
-    "createdAt": "...",
-    "updatedAt": "..."
-  }
-]
+{
+  "users": [
+    {
+      "id": "...",
+      "email": "root@example.com",
+      "username": "root",
+      "role": "ROOT",
+      "status": "APPROVED",
+      "groupId": "...",
+      "createdAt": "...",
+      "updatedAt": "..."
+    },
+    {
+      "id": "...",
+      "email": "user1@A1B2C3.local",
+      "username": "user1",
+      "role": "USER",
+      "status": "APPROVED",
+      "groupId": "...",
+      "createdAt": "...",
+      "updatedAt": "..."
+    }
+  ]
+}
 ```
 
 ---
@@ -276,49 +285,52 @@ curl -X GET http://localhost:3000/api/auth/users/ROOT_USER_ID \
 ```bash
 # username과 password 모두 선택사항
 # 하나만 수정하거나 둘 다 수정 가능
-curl -X PATCH http://localhost:3000/api/auth/users/USER_ID \
+curl -X POST http://localhost:3000/api/auth/update \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer ROOT_ACCESS_TOKEN" \
   -d '{
+    "userId": "USER_ID",
     "username": "newUsername",
-    "password": "newPassword123",
-    "rootUserId": "ROOT_USER_ID"
+    "password": "newPassword123"
   }'
 ```
 
 **Response:**
 ```json
 {
-  "id": "...",
-  "email": "newUsername@A1B2C3.local",
-  "username": "newUsername",
-  "role": "USER",
-  "status": "APPROVED",
-  "groupId": "...",
-  "createdAt": "...",
-  "updatedAt": "..."
+  "message": "User updated successfully",
+  "user": {
+    "id": "...",
+    "email": "newUsername@A1B2C3.local",
+    "username": "newUsername",
+    "role": "USER",
+    "status": "APPROVED",
+    "groupId": "...",
+    "createdAt": "...",
+    "updatedAt": "..."
+  }
 }
 ```
 
 **예시: username만 수정**
 ```bash
-curl -X PATCH http://localhost:3000/api/auth/users/USER_ID \
+curl -X POST http://localhost:3000/api/auth/update \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer ROOT_ACCESS_TOKEN" \
   -d '{
-    "username": "newUsername",
-    "rootUserId": "ROOT_USER_ID"
+    "userId": "USER_ID",
+    "username": "newUsername"
   }'
 ```
 
 **예시: password만 수정**
 ```bash
-curl -X PATCH http://localhost:3000/api/auth/users/USER_ID \
+curl -X POST http://localhost:3000/api/auth/update \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer ROOT_ACCESS_TOKEN" \
   -d '{
-    "password": "newPassword123",
-    "rootUserId": "ROOT_USER_ID"
+    "userId": "USER_ID",
+    "password": "newPassword123"
   }'
 ```
 
@@ -327,11 +339,11 @@ curl -X PATCH http://localhost:3000/api/auth/users/USER_ID \
 ### 11. 사용자 삭제 (Root만)
 
 ```bash
-curl -X DELETE http://localhost:3000/api/auth/users/USER_ID \
+curl -X POST http://localhost:3000/api/auth/delete \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer ROOT_ACCESS_TOKEN" \
   -d '{
-    "rootUserId": "ROOT_USER_ID"
+    "userId": "USER_ID"
   }'
 ```
 
@@ -377,18 +389,20 @@ echo ""
 
 # 4. 승인 대기 Root 목록
 echo "4. 승인 대기 Root 목록..."
-PENDING=$(curl -s -X GET http://localhost:3000/api/auth/pending-roots/$ADMIN_ID \
-  -H "Authorization: Bearer $ADMIN_TOKEN")
-ROOT_ID=$(echo $PENDING | jq -r '.[0].id')
+PENDING=$(curl -s -X POST http://localhost:3000/api/auth/pending \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $ADMIN_TOKEN" \
+  -d '{}')
+ROOT_ID=$(echo $PENDING | jq -r '.roots[0].id')
 echo "ROOT ID: $ROOT_ID"
 echo ""
 
 # 5. Root 승인
 echo "5. Root 승인..."
-APPROVAL=$(curl -s -X PATCH http://localhost:3000/api/auth/approve-root/$ROOT_ID \
+APPROVAL=$(curl -s -X POST http://localhost:3000/api/auth/approve \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $ADMIN_TOKEN" \
-  -d "{\"approved\":true,\"adminUserId\":\"$ADMIN_ID\"}")
+  -d "{\"approved\":true,\"userId\":\"$ROOT_ID\"}")
 GROUP_CODE=$(echo $APPROVAL | jq -r '.groupCode')
 echo "그룹 코드: $GROUP_CODE"
 echo ""
@@ -404,26 +418,26 @@ echo ""
 
 # 7. 사용자 생성
 echo "7. 사용자 생성..."
-USER_CREATE=$(curl -s -X POST http://localhost:3000/api/auth/users \
+USER_CREATE=$(curl -s -X POST http://localhost:3000/api/auth/create \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $ROOT_TOKEN" \
-  -d "{\"username\":\"user1\",\"password\":\"password123\",\"rootUserId\":\"$ROOT_ID\"}")
+  -d "{\"username\":\"user1\",\"password\":\"password123\"}")
 USER_ID=$(echo $USER_CREATE | jq -r '.id')
 echo $USER_CREATE | jq
 echo ""
 
 # 8. 사용자 목록 조회
 echo "8. 사용자 목록 조회..."
-curl -X GET http://localhost:3000/api/auth/users/$ROOT_ID \
+curl -X GET http://localhost:3000/api/auth/users \
   -H "Authorization: Bearer $ROOT_TOKEN"
 echo ""
 
 # 9. 사용자 수정 (username 변경)
 echo "9. 사용자 수정..."
-curl -X PATCH http://localhost:3000/api/auth/users/$USER_ID \
+curl -X POST http://localhost:3000/api/auth/update \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $ROOT_TOKEN" \
-  -d "{\"username\":\"modifiedUser\",\"rootUserId\":\"$ROOT_ID\"}"
+  -d "{\"userId\":\"$USER_ID\",\"username\":\"modifiedUser\"}"
 echo ""
 ```
 
