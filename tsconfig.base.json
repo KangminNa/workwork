@@ -1,26 +1,15 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "commonjs",
+    "module": "ESNext",
     "lib": ["ES2022"],
-    "declaration": true,
-    "sourceMap": true,
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "removeComments": true,
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
     "strict": true,
     "strictNullChecks": true,
     "noImplicitAny": true,
-    "skipLibCheck": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "resolveJsonModule": true,
-    "baseUrl": ".",
-    "paths": {
-      "@core/*": ["src/core/*"]
-    }
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true
   }
 }
-

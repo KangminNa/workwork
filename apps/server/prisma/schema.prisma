@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 사용자
+model User {
+  id        String   @id @default(uuid())
+  email     String?  @unique           // ADMIN, ROOT만 사용 (USER는 null)
+  username  String                     // 로그인 아이디
+  password  String
+  role      String   @default("ROOT")  // ADMIN, ROOT, USER
+  status    String   @default("PENDING") // PENDING, APPROVED, REJECTED (ROOT만 사용, ADMIN은 항상 APPROVED)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Root 사용자만 그룹 소유 가능
+  ownedGroup Group? @relation("GroupOwner")
+  
+  // 사용자가 속한 그룹 (ADMIN은 null, ROOT는 승인 후 그룹 생성)
+  groupId    String?
+  group      Group?  @relation("GroupMembers", fields: [groupId], references: [id], onDelete: Cascade)
+  
+  // 생성한 Todo
+  todos      Todo[]
+
+  @@unique([username, groupId]) // 같은 그룹 내에서 username 유일
+}
+
+// 그룹
+model Group {
+  id          String   @id @default(uuid())
+  code        String   @unique // 그룹 코드 (6자리)
+  name        String
+  description String?
+  ownerId     String   @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  owner   User   @relation("GroupOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  members User[] @relation("GroupMembers")
+  todos   Todo[]
+}
+
+// Todo
+model Todo {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  completed   Boolean  @default(false)
+  groupId     String
+  createdBy   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  group   Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  creator User  @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+}

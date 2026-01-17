@@ -3,19 +3,18 @@
   "version": "1.0.0",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "apps/*"
   ],
   "scripts": {
+    "browser:dev": "npm -w @workwork/browser run dev",
+    "browser:build": "npm -w @workwork/browser run build",
+    "browser:preview": "npm -w @workwork/browser run preview",
     "server:dev": "npm -w @workwork/server run dev",
     "server:build": "npm -w @workwork/server run build",
-    "server:start": "npm -w @workwork/server run start",
-    "prisma:generate": "npm -w @workwork/server run prisma:generate",
-    "prisma:migrate": "npm -w @workwork/server run prisma:migrate",
-    "prisma:studio": "npm -w @workwork/server run prisma:studio"
+    "server:start": "npm -w @workwork/server run start"
   },
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=9.0.0"
   }
 }
-
