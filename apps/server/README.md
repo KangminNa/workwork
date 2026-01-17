@@ -5,7 +5,7 @@
 ## 1) 서버 개요
 - NestJS 기반 API 서버 (`apps/server/src`)
 - Prisma ORM 사용 (`apps/server/src/prisma/prisma.service.ts`)
-- 모듈 단위로 기능을 분리하고, 현재는 `LoginModule`이 핵심 기능을 담당
+- 모듈 단위로 기능을 분리하고, 도메인 로직은 각 모듈에 위치
 
 ## 2) 모듈 구성
 ```

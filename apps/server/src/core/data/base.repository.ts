@@ -1,5 +1,5 @@
-import { PrismaService } from '../../prisma/prisma.service';
-import { IMapper } from '../mappers/base.mapper';
+import { PrismaService } from '../external/prisma/prisma.service';
+import { IMapper } from './base.mapper';
 
 /**
  * Base Repository Interface
@@ -16,9 +16,6 @@ export interface IBaseRepository<TEntity, TSchema> {
   // 존재 여부
   exists(where: Partial<TSchema>): Promise<boolean>;
   
-  // 개수
-  count(where?: Partial<TSchema>): Promise<number>;
-  
   // 저장 (upsert)
   save(entity: TEntity): Promise<TEntity>;
   
@@ -31,8 +28,6 @@ export interface IBaseRepository<TEntity, TSchema> {
  * - CRUD 기능을 제공하는 Mixin
  * - Mapper를 통해 Entity ↔ Schema 변환
  */
-export type Constructor<T = {}> = new (...args: any[]) => T;
-
 export interface BaseRepositoryConfig<TEntity, TSchema> {
   modelName: string;
   mapper: IMapper<TEntity, TSchema>;
@@ -82,13 +77,6 @@ export function CrudRepositoryMixin<TEntity, TSchema>(
     }
 
     /**
-     * 개수 조회
-     */
-    async count(where?: Partial<TSchema>): Promise<number> {
-      return this.model.count({ where });
-    }
-
-    /**
      * 저장 (upsert)
      */
     async save(entity: TEntity): Promise<TEntity> {
@@ -116,4 +104,3 @@ export function CrudRepositoryMixin<TEntity, TSchema>(
 
   return CrudRepository;
 }
-

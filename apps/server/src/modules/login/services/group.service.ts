@@ -3,7 +3,7 @@ import { IGroupRepository } from '../repositories/login.repository.interface';
 import { Group } from '../models/entities/group.entity';
 import { User } from '../models/entities/user.entity';
 import { CryptoUtil } from '../../../common/utils/crypto.util';
-import { BaseService } from '../../../core/services/base.service';
+import { BaseService } from '../../../core/base/base.service';
 
 /**
  * Group Service

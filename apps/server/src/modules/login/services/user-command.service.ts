@@ -3,7 +3,7 @@ import { IUserRepository } from '../repositories/login.repository.interface';
 import { User } from '../models/entities/user.entity';
 import { UserRole } from '../models/user-role.enum';
 import { UserStatus } from '../models/user-status.enum';
-import { BaseService } from '../../../core/services/base.service';
+import { BaseService } from '../../../core/base/base.service';
 import { DomainException } from '../../../common/exceptions/domain.exception';
 import { Email } from '../models/values/email.vo';
 import { Username } from '../models/values/username.vo';

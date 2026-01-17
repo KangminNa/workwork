@@ -1,4 +1,4 @@
-import { BaseEntity } from '../../../../core/types/base.entity';
+import { BaseEntity } from '../../../../core/base/base.entity';
 import { Email } from '../values/email.vo';
 import { Password } from '../values/password.vo';
 import { UserRole } from '../user-role.enum';

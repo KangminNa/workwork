@@ -40,10 +40,6 @@ export class CachedUserRepository implements IUserRepository {
     return !!user;
   }
 
-  async count(where?: Partial<UserSchema>): Promise<number> {
-    return this.repository.count(where);
-  }
-
   async save(entity: User): Promise<User> {
     const saved = await this.repository.save(entity);
     this.cache.clear();

@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../../prisma/prisma.service';
+import { PrismaService } from '../../../core/external/prisma/prisma.service';
 import { IUserRepository } from './login.repository.interface';
 import { User } from '../models/entities/user.entity';
 import { UserSchema } from '../models/schemas/user-schema.dto';
-import { CrudRepositoryMixin } from '../../../core/repositories/base.repository';
-import { BaseMapper } from '../../../core/mappers/base.mapper';
+import { CrudRepositoryMixin } from '../../../core/data/base.repository';
+import { BaseMapper } from '../../../core/data/base.mapper';
 
 /**
  * User Mapper (Repository 내부)

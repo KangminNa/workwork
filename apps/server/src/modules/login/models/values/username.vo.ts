@@ -1,5 +1,5 @@
 import { DomainException } from '../../../../common/exceptions/domain.exception';
-import { StringValueObject } from '../../../../core/types/value-object.base';
+import { StringValueObject } from '../../../../core/base/value-object.base';
 
 /**
  * Username Value Object

@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../../prisma/prisma.service';
+import { PrismaService } from '../../../core/external/prisma/prisma.service';
 import { IGroupRepository } from './login.repository.interface';
 import { Group } from '../models/entities/group.entity';
 import { GroupSchema } from '../models/schemas/group-schema.dto';
-import { CrudRepositoryMixin } from '../../../core/repositories/base.repository';
-import { BaseMapper } from '../../../core/mappers/base.mapper';
+import { CrudRepositoryMixin } from '../../../core/data/base.repository';
+import { BaseMapper } from '../../../core/data/base.mapper';
 
 /**
  * Group Mapper (Repository 내부)

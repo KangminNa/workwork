@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '../models/entities/user.entity';
 import { CryptoUtil } from '../../../common/utils/crypto.util';
-import { BaseService } from '../../../core/services/base.service';
+import { BaseService } from '../../../core/base/base.service';
 import { Email } from '../models/values/email.vo';
 import { Password } from '../models/values/password.vo';
 import { Username } from '../models/values/username.vo';

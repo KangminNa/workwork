@@ -1,4 +1,4 @@
-import { IBaseRepository } from '../../../core/repositories/base.repository';
+import { IBaseRepository } from '../../../core/data/base.repository';
 import { User } from '../models/entities/user.entity';
 import { Group } from '../models/entities/group.entity';
 

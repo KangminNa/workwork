@@ -18,16 +18,4 @@ export abstract class BaseService {
   protected log(message: string, data?: any) {
     this.logger.log(message, data);
   }
-
-  protected logError(message: string, error?: any) {
-    this.logger.error(message, error);
-  }
-
-  protected logWarn(message: string, data?: any) {
-    this.logger.warn(message, data);
-  }
-
-  protected logDebug(message: string, data?: any) {
-    this.logger.debug(message, data);
-  }
 }

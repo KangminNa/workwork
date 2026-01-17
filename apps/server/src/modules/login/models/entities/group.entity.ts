@@ -1,4 +1,4 @@
-import { BaseEntity } from '../../../../core/types/base.entity';
+import { BaseEntity } from '../../../../core/base/base.entity';
 import { GroupCode } from '../values/group-code.vo';
 import { DomainException } from '../../../../common/exceptions/domain.exception';
 import { CryptoUtil } from '../../../../common/utils/crypto.util';

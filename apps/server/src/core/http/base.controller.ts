@@ -1,10 +1,9 @@
 import { Post, Get, Param, Body, Query, BadRequestException, UseGuards } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
 import { validateSync } from 'class-validator';
-import { JwtAuthGuard } from '../guards/jwt-auth.guard';
-import { CurrentUser } from '../decorators/current-user.decorator';
-import { User } from '../../modules/login/models/entities/user.entity';
-import { ACTION_DTO_KEY } from '../decorators/action-dto.decorator';
+import { JwtAuthGuard } from './jwt-auth.guard';
+import { CurrentUser } from './current-user.decorator';
+import { ACTION_DTO_KEY } from './action-dto.decorator';
 
 /**
  * Base Controller
@@ -25,19 +24,11 @@ export abstract class BaseController {
   @Post(':action')
   @UseGuards(JwtAuthGuard)
   async execute(
-    @CurrentUser() actor: User,
+    @CurrentUser() actor: any,
     @Param('action') action: string,
     @Body() params: any,
   ) {
-    const methodName = `handle${this.formatAction(action)}`;
-    const method = this[methodName];
-
-    if (typeof method !== 'function') {
-      throw new BadRequestException(`Action not supported: ${action}`);
-    }
-
-    const validatedParams = this.validateParams(method, params);
-    return method.call(this, actor, validatedParams);
+    return this.dispatch('handle', action, actor, params);
   }
 
   /**
@@ -50,19 +41,11 @@ export abstract class BaseController {
   @Get(':action')
   @UseGuards(JwtAuthGuard)
   async query(
-    @CurrentUser() actor: User,
+    @CurrentUser() actor: any,
     @Param('action') action: string,
     @Query() params: any,
   ) {
-    const methodName = `query${this.formatAction(action)}`;
-    const method = this[methodName];
-
-    if (typeof method !== 'function') {
-      throw new BadRequestException(`Query not supported: ${action}`);
-    }
-
-    const validatedParams = this.validateParams(method, params);
-    return method.call(this, actor, validatedParams);
+    return this.dispatch('query', action, actor, params);
   }
 
   /**
@@ -78,6 +61,24 @@ export abstract class BaseController {
       .filter(Boolean)
       .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
       .join('');
+  }
+
+  private dispatch(
+    prefix: 'handle' | 'query',
+    action: string,
+    actor: any,
+    params: any,
+  ) {
+    const methodName = `${prefix}${this.formatAction(action)}`;
+    const method = this[methodName];
+
+    if (typeof method !== 'function') {
+      const label = prefix === 'handle' ? 'Action' : 'Query';
+      throw new BadRequestException(`${label} not supported: ${action}`);
+    }
+
+    const validatedParams = this.validateParams(method, params);
+    return method.call(this, actor, validatedParams);
   }
 
   private validateParams(method: Function, params: any) {

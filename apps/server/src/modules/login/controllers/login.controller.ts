@@ -1,13 +1,13 @@
 import { Controller } from '@nestjs/common';
-import { BaseController } from '../../../core/controllers/base.controller';
-import { PublicActions } from '../../../core/decorators/public-actions.decorator';
+import { BaseController } from '../../../core/http/base.controller';
+import { PublicActions } from '../../../core/http/public-actions.decorator';
 import { AuthUseCase } from '../services/usecases/auth.usecase';
 import { UserAdminUseCase } from '../services/usecases/user-admin.usecase';
 import { UserQueryUseCase } from '../services/usecases/user-query.usecase';
 import { User } from '../models/entities/user.entity';
 import { SignupDto, LoginDto, ApproveRootDto } from '../dtos/auth.dto';
 import { CreateUserDto, UpdateUserRequestDto, DeleteUserRequestDto } from '../dtos/user.dto';
-import { ActionDto } from '../../../core/decorators/action-dto.decorator';
+import { ActionDto } from '../../../core/http/action-dto.decorator';
 
 /**
  * Login Controller

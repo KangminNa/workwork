@@ -1,6 +1,6 @@
 import { DomainException } from '../../../../common/exceptions/domain.exception';
 import { CryptoUtil } from '../../../../common/utils/crypto.util';
-import { ValueObject } from '../../../../core/types/value-object.base';
+import { ValueObject } from '../../../../core/base/value-object.base';
 
 /**
  * Password Value Object

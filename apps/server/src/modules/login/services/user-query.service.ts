@@ -3,7 +3,7 @@ import { IUserRepository } from '../repositories/login.repository.interface';
 import { User } from '../models/entities/user.entity';
 import { UserRole } from '../models/user-role.enum';
 import { UserStatus } from '../models/user-status.enum';
-import { BaseService } from '../../../core/services/base.service';
+import { BaseService } from '../../../core/base/base.service';
 
 /**
  * User Query Service
@@ -53,12 +53,5 @@ export class UserQueryService extends BaseService {
       role: UserRole.ROOT,
       status: UserStatus.PENDING,
     });
-  }
-
-  /**
-   * 사용자 존재 여부 확인
-   */
-  async exists(where: any): Promise<boolean> {
-    return this.userRepo.exists(where);
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { BaseService } from '../../../../core/services/base.service';
+import { BaseService } from '../../../../core/base/base.service';
 import { UserQueryService } from '../user-query.service';
 import { UserCommandService } from '../user-command.service';
 import { GroupService } from '../group.service';

@@ -1,6 +1,6 @@
 import { DomainException } from '../../../../common/exceptions/domain.exception';
 import { CryptoUtil } from '../../../../common/utils/crypto.util';
-import { StringValueObject } from '../../../../core/types/value-object.base';
+import { StringValueObject } from '../../../../core/base/value-object.base';
 
 /**
  * GroupCode Value Object

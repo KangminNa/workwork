@@ -3,7 +3,7 @@ import { LoginModule } from './modules/login/login.module';
 
 /**
  * App Module
- * - LoginModule로 User + Group 통합
+ * - 도메인 로직은 각 모듈에 위치
  */
 @Module({
   imports: [LoginModule],
